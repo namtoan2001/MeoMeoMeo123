@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mèo Méo Meo</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" href="~/Content/Style.css">
+</head>
+<body>
+    <header>
+        class="l-header" id="header">
+        <nav class="nav bd-container">
+            <a href="#" class="nav__logo">Mèo Méo Meo</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active-link">Trang chủ</a></li>
+                    <li class="nav__item"><a href="#menu" class="nav__link">Danh mục</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">Về chúng tôi</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Liên hệ</a></li>
+                    <li class="nav__item"><a href=@Url.Action("Login", "DangNhap") class="nav__link"><i class="far fa-user"></i></a></li>
+                    @*<ul>
+                            <li class="nav__item"><a href=@Url.Action("Login", "DangNhap")></li>
+                            <li class="nav__item"><a href=@Url.Action("Dangki", "Home")></li>
+                        </ul>*@
+                    <li class="nav__item"><a href="#" class="nav__link"><i class='fas fa-shopping-basket' id="theme-button"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

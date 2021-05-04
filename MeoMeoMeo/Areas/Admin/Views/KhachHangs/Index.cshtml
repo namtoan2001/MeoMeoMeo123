@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MeoMeoMeo.Models.KhachHang>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenKH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sdt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diachi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenDN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserRole.UserRole1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenKH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sdt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diachi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenDN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserRole.UserRole1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaKH }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaKH }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaKH })
+        </td>
+    </tr>
+}
+
+</table>

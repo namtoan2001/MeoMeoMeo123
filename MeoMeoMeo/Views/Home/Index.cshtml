@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mèo Méo Meo</title>
+    <link rel="stylesheet" href="~/Content/Style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
+</head>
+<body>
+    @*<header class="l-header" id="header">
+        <nav class="nav bd-container">
+            <a href="#" class="nav__logo">Mèo Méo Meo</a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active-link">Trang chủ</a></li>
+                    <li class="nav__item"><a href="#menu" class="nav__link">Danh mục</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">Về chúng tôi</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Liên hệ</a></li>
+                    <li class="nav__item"><a href=@Url.Action("Login", "Home") class="nav__link"><i class="far fa-user"></i></a></li>
+                    <li class="nav__item"><a href="#" class="nav__link"><i class='fas fa-shopping-basket' id="theme-button"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>*@
+
+    <main class="l-main">
+        <!--========== HOME ==========-->
+        <section class="home" id="home">
+            <div class="home__container bd-container bd-grid">
+                <div class="home__data">
+                    <h1 class="home__title">Mèo Méo Meo</h1>
+                    <h2 class="home__subtitle">Thức ăn cho thú cưng <br></h2>
+                    <a href="#" class="button">Xem Danh Mục</a>
+                </div>
+
+                <img src="~/Content/IMG/1.jpg" alt="" class="home__img">
+            </div>
+        </section>
+
+        <!--========== ABOUT ==========-->
+        <section class="about section bd-container" id="about">
+            <div class="about__container  bd-grid">
+                <div class="about__data">
+                    <span class="section-subtitle about__initial">Về chúng tôi</span>
+                    <h2 class="section-title about__initial">Những thực phẩm tốt<br> dành cho thú cưng</h2>
+                    <p class="about__description">Chúng tôi cung cấp cho khách hàng đa dạng các loại thực phẩm dành cho thú cưng của bạn. Với chất lượng cao và dịch vụ cao cấp nhất tại thị trưởng Việt Nam.</p>
+                </div>
+
+                <img src="assets/img/about.jpg" alt="" class="about__img">
+            </div>
+        </section>
+
+
+        <script src="https://unpkg.com/scrollreveal"></script>
+</body>
+</html>

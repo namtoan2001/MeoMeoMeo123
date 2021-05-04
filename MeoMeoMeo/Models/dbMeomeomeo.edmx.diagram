@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="57715b2f2a964092a9f2ff747701b55e" Name="Diagram1">
+        <EntityTypeShape EntityType="CT25Team28Model.DonHang" Width="1.5" PointX="5.875" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CT25Team28Model.KhachHang" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CT25Team28Model.LoaiSP" Width="1.5" PointX="4.375" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CT25Team28Model.sysdiagram" Width="1.5" PointX="12.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CT25Team28Model.ChiTietDH" Width="1.5" PointX="9.875" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="CT25Team28Model.FK_ChiTietDH_DonHang" ManuallyRouted="false" />
+        <AssociationConnector Association="CT25Team28Model.FK_DonHang_KhachHang" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CT25Team28Model.UserRole" Width="1.5" PointX="0.5" PointY="1.875" />
+        <AssociationConnector Association="CT25Team28Model.FK_KhachHang_UserRole" />
+        <EntityTypeShape EntityType="CT25Team28Model.SanPham" Width="1.5" PointX="6.625" PointY="4.625" />
+        <AssociationConnector Association="CT25Team28Model.FK_SanPham_LoaiSP" />
+        <AssociationConnector Association="CT25Team28Model.FK_ChiTietDH_SanPham" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

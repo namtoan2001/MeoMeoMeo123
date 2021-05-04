@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Đăng nhập";
+}
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="~/Content/LoginStyle.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
+        <title>Đăng nhập</title>
+    </head>
+    <body>
+        <section class="vungdangnhap">
+            <h2>Đăng nhập</h2>
+            <form action="#" method="post">
+                <div class="textbox">
+                    <p><br><input class="txt_dangnhap" type="text" placeholder="Tên đăng nhập" required></br></p>
+                    <p><br><input class="txt_dangnhap" type="password" placeholder="Mật khẩu" required></br></p>
+                </div>
+                <div>
+                    <p><br><button class="bt-dangnhap" type="submit">Đăng nhập</button></br></p>
+                </div>
+                <p><br><a class="dangki" href=@Url.Action("Dangki", "DangNhap")>Đăng kí</a></br></p>
+            </form>
+        </section>
+
+    </body>
+    </html>
