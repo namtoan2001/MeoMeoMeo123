@@ -6,14 +6,12 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm("SanPhams","Admin",FormMethod.Post,new
+@using (Html.BeginForm())
+
 {
-    enctype = "multipart/form-data"
-}))
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+@Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
         <h4>SanPham</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

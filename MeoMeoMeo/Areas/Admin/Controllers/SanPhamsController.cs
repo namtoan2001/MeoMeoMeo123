@@ -52,10 +52,29 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaSP,TenSP,Maloai,SL,Gia,Mota,Hinh_anh")] SanPham sanPham)
+        public ActionResult Create([Bind(Include = "MaSP,TenSP,Maloai,SL,Gia,Mota,Hinh_anh")] SanPham sanPham, IEnumerable<HttpPostedFileBase> files)
         {
-            if (ModelState.IsValid)
+            //string filename = Path.GetFileName(sanPham.imgfile.FileName);
+            //string fileExtention = Path.GetExtension(sanPham.imgfile.FileName);
+            //filename = DateTime.Now.ToString("yyyyMMdd") + "-" + filename.Trim() + fileExtention;
+            //string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
+            //sanPham.Hinh_anh = UploadPath + filename;
+            //sanPham.imgfile.SaveAs(sanPham.Hinh_anh);
+
+
+            foreach (var file in files)
             {
+                if (file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/IMG SANPHAM"), fileName);
+                    file.SaveAs(path);
+                }
+            }
+
+
+            if (ModelState.IsValid)
+            { 
                 db.SanPhams.Add(sanPham);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -63,10 +82,13 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
 
             ViewBag.Maloai = new SelectList(db.LoaiSPs, "MaLoai", "TenLoai", sanPham.Maloai);
 
-            string filename = Path.GetFileNameWithoutExtension(sanPham.imgfile.FileName);
-            string fileExtention = Path.GetExtension(sanPham.imgfile.FileName);
-            filename = DateTime.Now.ToString("yyyyMMdd") + "-" + filename.Trim() + fileExtention;
-            string UploadPath = ConfigurationManager.AppSettings[""].ToString();
+            //string filename = Path.GetFileNameWithoutExtension(sanPham.imgfile.FileName);
+            //string fileExtention = Path.GetExtension(sanPham.imgfile.FileName);
+            //filename = DateTime.Now.ToString("yyyyMMdd") + "-" + filename.Trim() + fileExtention;
+            //string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
+            //sanPham.Hinh_anh = UploadPath + filename;
+            //sanPham.imgfile.SaveAs(sanPham.Hinh_anh);
+
             return View(sanPham);
         }
 

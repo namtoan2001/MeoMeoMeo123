@@ -1,29 +1,74 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - Mèo Méo Meo</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <link rel="stylesheet" type="text/css" href="~/Content/Style.css">
+    </head>
+    <body>
+        <header>
+            class="l-header" id="header">
+            <nav class="nav bd-container">
+                <a href="#" class="nav__logo">Mèo Méo Meo</a>
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#home" class="nav__link active-link">Trang chủ</a></li>
+                        <li class="nav__item"><a href="#menu" class="nav__link">Danh mục</a></li>
+                        <li class="nav__item"><a href="#about" class="nav__link">Về chúng tôi</a></li>
+                        <li class="nav__item"><a href="#contact" class="nav__link">Liên hệ</a></li>
+                        <li class="nav__item"><a href=@Url.Action("Login", "DangNhap") class="nav__link"><i class="far fa-user"></i></a></li>
+                        <ul>
+                                <li class="nav__item"><a href=@Url.Action("Login", "DangNhap")></li>
+                                <li class="nav__item"><a href=@Url.Action("Dangki", "Home")></li>
+                            </ul>
+                        <li class="nav__item"><a href="#" class="nav__link"><i class='fas fa-shopping-basket' id="theme-button"></i></a></li>
+                    </ul>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </nav>
+        </header>
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year</p>
+                </footer>
+            </div>
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+        </body>
+    </html>*@
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mèo Méo Meo</title>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Style.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="stylesheet" type="text/css" href="~/Content/Style.css">
 </head>
 <body>
-    <header>
-        class="l-header" id="header">
+    <header class="l-header" id="header">
         <nav class="nav bd-container">
-            <a href="#" class="nav__logo">Mèo Méo Meo</a>
+            <a href="#" class="nav__logo">PetFoodShop</a>
+
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href="#home" class="nav__link active-link">Trang chủ</a></li>
-                    <li class="nav__item"><a href="#menu" class="nav__link">Danh mục</a></li>
-                    <li class="nav__item"><a href="#about" class="nav__link">Về chúng tôi</a></li>
-                    <li class="nav__item"><a href="#contact" class="nav__link">Liên hệ</a></li>
-                    <li class="nav__item"><a href=@Url.Action("Login", "DangNhap") class="nav__link"><i class="far fa-user"></i></a></li>
-                    @*<ul>
-                            <li class="nav__item"><a href=@Url.Action("Login", "DangNhap")></li>
-                            <li class="nav__item"><a href=@Url.Action("Dangki", "Home")></li>
-                        </ul>*@
+                    <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                    <li class="nav__item"><a href=@Url.Action("SanPham","Home") class="nav__link">Menu</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contact us</a></li>
+                    <li class="nav__item"><a href=@Url.Action("Login","DangNhap") class="nav__link"><i class="far fa-user"></i></a></li>
                     <li class="nav__item"><a href="#" class="nav__link"><i class='fas fa-shopping-basket' id="theme-button"></i></a></li>
                 </ul>
             </div>
@@ -33,16 +78,57 @@
             </div>
         </nav>
     </header>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year</p>
-            </footer>
-        </div>
+    <div class="container body-content">
+        @RenderBody()
+        <footer class="footer section bd-container">
+            <div class="footer__container bd-grid">
+                <div class="footer__content">
+                    <a href="#" class="footer__logo">PetFoodShop</a>
+                    <span class="footer__description">Mèo méo meo</span>
+                    <div>
+                        <a href="#" class="footer__social"><i class='bx bxl-facebook'></i></a>
+                        <a href="#" class="footer__social"><i class='bx bxl-instagram'></i></a>
+                        <a href="#" class="footer__social"><i class='bx bxl-twitter'></i></a>
+                    </div>
+                </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
+                <div class="footer__content">
+                    <h3 class="footer__title">Services</h3>
+                    <ul>
+                        <li><a href="#" class="footer__link">Delivery</a></li>
+                        <li><a href="#" class="footer__link">Pricing</a></li>
+                        <li><a href="#" class="footer__link">Pet Food</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Information</h3>
+                    <ul>
+
+                        <li><a href="#" class="footer__link">Contact us</a></li>
+                        <li><a href="#" class="footer__link">Privacy policy</a></li>
+                        <li><a href="#" class="footer__link">Terms of services</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Address</h3>
+                    <ul>
+                        <li>Ho Chi Minh City</li>
+                        <li>Viet Nam</li>
+                        <li>113-113-113</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="footer__end">&#169; 2021 Team8. All right reserved</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
 </html>
+
