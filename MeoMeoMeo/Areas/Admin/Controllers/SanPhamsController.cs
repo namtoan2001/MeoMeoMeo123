@@ -11,18 +11,32 @@ using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-
+using System.Data.Entity;
+using System.Net;
+using System.Data.Entity.Infrastructure;
+using System.Threading.Tasks;
 namespace MeoMeoMeo.Areas.Admin.Controllers
 {
     public class SanPhamsController : Controller
     {
-        private CT25Team28Entities db = new CT25Team28Entities();
+        CT25Team28Entities db = new CT25Team28Entities();
 
         // GET: Admin/SanPhams
         public ActionResult Index()
         {
             var sanPhams = db.SanPhams.Include(s => s.LoaiSP);
             return View(sanPhams.ToList());
+        }
+        [HttpPost]
+        public ActionResult Index(string search)
+        {
+            var link = from l in db.SanPhams
+                       select l;
+            if (!String.IsNullOrEmpty(search))
+            {
+                link = link.Where(s => s.TenSP.Contains(search));
+            }
+            return View(link);
         }
 
         // GET: Admin/SanPhams/Details/5
@@ -52,44 +66,31 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaSP,TenSP,Maloai,SL,Gia,Mota,Hinh_anh")] SanPham sanPham, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Create([Bind(Include = "MaSP,TenSP,Maloai,SL,Gia,Mota,Hinh_anh")] SanPham sanPham, HttpPostedFileBase img)
         {
-            //string filename = Path.GetFileName(sanPham.imgfile.FileName);
-            //string fileExtention = Path.GetExtension(sanPham.imgfile.FileName);
-            //filename = DateTime.Now.ToString("yyyyMMdd") + "-" + filename.Trim() + fileExtention;
-            //string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
-            //sanPham.Hinh_anh = UploadPath + filename;
-            //sanPham.imgfile.SaveAs(sanPham.Hinh_anh);
 
-
-            foreach (var file in files)
-            {
-                if (file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/IMG SANPHAM"), fileName);
-                    file.SaveAs(path);
-                }
-            }
-
+            string image = Path.GetFileName(sanPham.Hinh_anh);
+            string link = Server.MapPath(image);
 
             if (ModelState.IsValid)
-            { 
+            {
+                //db.SanPhams.Add(sanPham);
+                //db.SaveChanges();
+                //img.SaveAs("E:/Project C#/MeoMeoMeo/MeoMeoMeo/IMG SANPHAM/" + sanPham.MaSP.ToString() + sanPham.Hinh_anh);
+                //img.SaveAs(Server.MapPath(Url.Content("~/IMG SANPHAM/" + sanPham.MaSP.ToString() + sanPham.Hinh_anh)));
+                img.SaveAs(link);
+
                 db.SanPhams.Add(sanPham);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                
             }
 
             ViewBag.Maloai = new SelectList(db.LoaiSPs, "MaLoai", "TenLoai", sanPham.Maloai);
 
-            //string filename = Path.GetFileNameWithoutExtension(sanPham.imgfile.FileName);
-            //string fileExtention = Path.GetExtension(sanPham.imgfile.FileName);
-            //filename = DateTime.Now.ToString("yyyyMMdd") + "-" + filename.Trim() + fileExtention;
-            //string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
-            //sanPham.Hinh_anh = UploadPath + filename;
-            //sanPham.imgfile.SaveAs(sanPham.Hinh_anh);
-
             return View(sanPham);
+
+
         }
 
         // GET: Admin/SanPhams/Edit/5

@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="CT25Team28Model.SanPham" Width="1.5" PointX="6.625" PointY="4.625" />
         <AssociationConnector Association="CT25Team28Model.FK_SanPham_LoaiSP" />
         <AssociationConnector Association="CT25Team28Model.FK_ChiTietDH_SanPham" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

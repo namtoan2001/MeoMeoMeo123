@@ -1,63 +1,71 @@
 ﻿@model IEnumerable<MeoMeoMeo.Models.SanPham>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sản phẩm";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenSP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mota)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hinh_anh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LoaiSP.TenLoai)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenSP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mota)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hinh_anh)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LoaiSP.TenLoai)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaSP }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaSP }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaSP })
-        </td>
-    </tr>
+<h2>Sản phẩm</h2>
+@using (Html.BeginForm())
+{
+    <div class="text-center">
+        Tìm kiếm sản phẩm: @Html.TextBox("search")
+        <input class="button" type="submit" value="Tìm kiếm">
+    </div>
 }
+    <p>
+        @Html.ActionLink("Tạo mới", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.TenSP)*@
+                Tên sản phẩm
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th>
+                Hình ảnh
+            </th>
+            <th>
+                Loại sản phẩm
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mota)
+                </td>
+                <td>
+                    <img src="~/IMG SANPHAM/@item.Hinh_anh" width="150" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiSP.TenLoai)
+                </td>
+                <td>
+                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.MaSP }) |
+                    @Html.ActionLink("Xem chi tiết", "Details", new { id = item.MaSP }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.MaSP })
+                </td>
+            </tr>
+        }
+
+    </table>

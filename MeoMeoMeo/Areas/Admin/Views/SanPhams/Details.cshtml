@@ -1,17 +1,17 @@
 ﻿@model MeoMeoMeo.Models.SanPham
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Xem chi tiết";
 }
 
-<h2>Details</h2>
+<h2>Xem chi tiết</h2>
 
 <div>
-    <h4>SanPham</h4>
+    <h4>Sản phẩm</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TenSP)
+            Tên sản phẩm
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SL)
+            Số lượng
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Gia)
+            Giá
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Mota)
+            Mô tả
         </dt>
 
         <dd>
@@ -43,15 +43,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Hinh_anh)
+            Hình ảnh
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Hinh_anh)
+            <img src="~/IMG SANPHAM/@Model.Hinh_anh" width="100"/>
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LoaiSP.TenLoai)
+            Loại sản phẩm
         </dt>
 
         <dd>
@@ -61,6 +61,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaSP }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.MaSP }) |
+    @Html.ActionLink("Trở về", "Index")
 </p>

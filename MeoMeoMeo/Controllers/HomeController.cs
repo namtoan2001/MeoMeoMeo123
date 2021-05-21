@@ -27,5 +27,38 @@ namespace MeoMeoMeo.Controllers
             var sp = db.SanPhams.Include(s => s.LoaiSP);
             return View(sp.ToList());
         }
+        [HttpPost]
+        public ActionResult sanPham(string search)
+        {
+            var link = from l in db.SanPhams 
+                        select l;
+            if (!String.IsNullOrEmpty(search)) 
+            {
+                link = link.Where(s => s.TenSP.Contains(search));
+            }
+            //else
+            //{
+            //    ModelState.AddModelError("", "Không tìm thấy sản phẩm");
+            //}
+            return View(link);
+        }
+        public ActionResult Logout()
+        {
+            Session["TenDangNhap"] = null;
+            return RedirectToAction("/");
+        }
+        public ActionResult chitietSP(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SanPham sanPham = db.SanPhams.Find(id);
+            if (sanPham == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sanPham);
+        }
     }
 }

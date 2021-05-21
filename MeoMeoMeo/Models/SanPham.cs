@@ -11,16 +11,9 @@ namespace MeoMeoMeo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Web;
-    using MeoMeoMeo.Models;
-
+    
     public partial class SanPham
     {
-        CT25Team28Entities db = new CT25Team28Entities();
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SanPham()
         {
@@ -31,18 +24,12 @@ namespace MeoMeoMeo.Models
         public string TenSP { get; set; }
         public Nullable<int> Maloai { get; set; }
         public Nullable<int> SL { get; set; }
-        public Nullable<decimal> Gia { get; set; }
+        public Nullable<double> Gia { get; set; }
         public string Mota { get; set; }
-
-
         public string Hinh_anh { get; set; }
-
-        public HttpPostedFileBase imgfile { get; set; }
     
         public virtual LoaiSP LoaiSP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDH> ChiTietDHs { get; set; }
-
-
     }
 }

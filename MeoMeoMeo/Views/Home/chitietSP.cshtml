@@ -1,0 +1,52 @@
+﻿@model MeoMeoMeo.Models.SanPham
+
+@{
+    ViewBag.Title = "chitietSP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <div class="btn-link">
+        @Html.ActionLink("Trở lại danh mục", "SanPham")
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active" id="pic-1">
+                                <img src="~/IMG SANPHAM/@Model.Hinh_anh" width=500 />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details col-md-6">
+                        <h3 class="product-title">Tên sản phẩm: @Model.TenSP</h3>
+                    </div>
+                    <p class="product-description">Mô tả sản phẩm: @Model.Mota</p>
+                    <h4 class="price">Giá bán: @Model.Gia VNĐ</h4>
+                    <h5 class="sizes">
+                        Số Lượng: @Model.SL
+                    </h5>
+                    <div class="action">
+                        <button class="button" type="button">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+ 

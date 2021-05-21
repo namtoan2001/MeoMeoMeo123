@@ -11,6 +11,7 @@ namespace MeoMeoMeo.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     
     public partial class KhachHang
     {
@@ -19,6 +20,7 @@ namespace MeoMeoMeo.Models
         {
             this.DonHangs = new HashSet<DonHang>();
         }
+        CT25Team28Entities db = new CT25Team28Entities();
     
         public int MaKH { get; set; }
         public string TenKH { get; set; }
@@ -31,5 +33,10 @@ namespace MeoMeoMeo.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
         public virtual UserRole UserRole { get; set; }
+
+        public bool CheckUserName(string tenDangNhap)
+        {
+            return db.KhachHangs.Count(x => x.TenDN == tenDangNhap) > 0;
+        }
     }
 }

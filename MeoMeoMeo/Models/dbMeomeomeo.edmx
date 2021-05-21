@@ -57,9 +57,9 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <Property Name="TenSP" Type="nvarchar" MaxLength="100" />
           <Property Name="Maloai" Type="int" />
           <Property Name="SL" Type="int" />
-          <Property Name="Gia" Type="money" />
-          <Property Name="Mota" Type="nvarchar" MaxLength="500" />
-          <Property Name="Hinh_anh" Type="nvarchar" MaxLength="500" />
+          <Property Name="Gia" Type="float" />
+          <Property Name="Mota" Type="nvarchar(max)" />
+          <Property Name="Hinh_anh" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -392,9 +392,9 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <Property Name="TenSP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Maloai" Type="Int32" />
           <Property Name="SL" Type="Int32" />
-          <Property Name="Gia" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Mota" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Hinh_anh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Gia" Type="Double" />
+          <Property Name="Mota" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Hinh_anh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LoaiSP" Relationship="CT25Team28Model.FK_SanPham_LoaiSP" FromRole="SanPham" ToRole="LoaiSP" />
           <NavigationProperty Name="ChiTietDHs" Relationship="CT25Team28Model.FK_ChiTietDH_SanPham" FromRole="SanPham" ToRole="ChiTietDH" />
         </EntityType>

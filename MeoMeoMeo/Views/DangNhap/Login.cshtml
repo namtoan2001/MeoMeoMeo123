@@ -1,33 +1,44 @@
-﻿
+﻿@model MeoMeoMeo.Models.LoginModel
+
 @{
-    ViewBag.Title = "Đăng nhập";
+    ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="~/Content/LoginStyle.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
-        <title>Đăng nhập</title>
-    </head>
-    <body>
-        <section class="vungdangnhap">
-            <h2>Đăng nhập</h2>
-            <form action="#" method="post">
-                <div class="textbox">
-                    <p><br><input class="txt_dangnhap" type="text" placeholder="Tên đăng nhập" required></br></p>
-                    <p><br><input class="txt_dangnhap" type="password" placeholder="Mật khẩu" required></br></p>
-                </div>
-                <div>
-                    <p><br><button class="bt-dangnhap" type="submit">Đăng nhập</button></br></p>
-                </div>
-                <p><br><a class="dangki" href=@Url.Action("Dangki", "DangNhap")>Đăng kí</a></br></p>
-            </form>
-        </section>
+<h2>Đăng Nhập</h2>
 
-    </body>
-    </html>
+<div class="body-content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenDangNhap, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Đăng Nhập" class="btn btn-default" />
+            </div>
+        </div>
+        <p><a href=@Url.Action("DangKi","DangNhap")>Đăng kí</a></p>
+    </div>
+    }
+</div>

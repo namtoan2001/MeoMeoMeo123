@@ -168,6 +168,8 @@
     <Compile Include="Models\LoaiSP.cs">
       <DependentUpon>dbMeomeomeo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>dbMeomeomeo.tt</DependentUpon>
     </Compile>
@@ -198,8 +200,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="IMG SANPHAM\GearVN_samurai_  %2824%29.jpg" />
-    <Content Include="IMG SANPHAM\Lunar-Empress-Lux-Splash-Art-HD-4k-Wallpaper-Background-Official-Art-Artwork-League-of-Legends-lol.jpg" />
+    <Content Include="IMG SANPHAM\nuoc-sot-cho-meo-vi-thit-bo-whiskas-beef-flavour-in-sauce.jpg" />
+    <Content Include="IMG SANPHAM\pate-cho-meo-vi-ca-ngu-va-ga-iris-tuna-chicken-cat-food.jpg" />
+    <Content Include="IMG SANPHAM\thuc-an-cho-cho-con-royal-canin-german-shepherd-puppy.jpg" />
+    <Content Include="IMG SANPHAM\thuc-an-cho-cho-truong-thanh-josera-active-nature-4-5kg.jpg" />
+    <Content Include="IMG SANPHAM\thuc-an-cho-cho-truong-thanh-royal-canin-chihuahua-adult-500g.jpg" />
+    <Content Include="IMG SANPHAM\thuc-an-cho-cho-vi-thit-ga-jerhigh-meat-as-meals-chicken-recipe.jpg" />
+    <Content Include="IMG SANPHAM\thuc-an-cho-meo-vi-ga-ca-ngu-pate-whiskas.jpg" />
+    <Content Include="IMG SANPHAM\Thuc-anh-cho-cho-freedog.png" />
+    <Content Include="IMG SANPHAM\xuc-xich-dinh-duong-taotaopets.jpg" />
     <Content Include="Models\dbMeomeomeo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>dbMeomeomeo.Context.cs</LastGenOutput>
@@ -279,6 +288,7 @@
     <Content Include="Views\DangNhap\Dangki.cshtml" />
     <Content Include="Views\DangNhap\Login.cshtml" />
     <Content Include="Views\Home\SanPham.cshtml" />
+    <Content Include="Views\Home\chitietSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
