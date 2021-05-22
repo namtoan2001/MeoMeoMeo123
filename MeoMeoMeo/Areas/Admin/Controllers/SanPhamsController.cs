@@ -68,21 +68,38 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaSP,TenSP,Maloai,SL,Gia,Mota,Hinh_anh")] SanPham sanPham, HttpPostedFileBase img)
         {
-
-            string image = Path.GetFileName(sanPham.Hinh_anh);
-            string link = Server.MapPath(image);
-
             if (ModelState.IsValid)
             {
                 //db.SanPhams.Add(sanPham);
                 //db.SaveChanges();
                 //img.SaveAs("E:/Project C#/MeoMeoMeo/MeoMeoMeo/IMG SANPHAM/" + sanPham.MaSP.ToString() + sanPham.Hinh_anh);
                 //img.SaveAs(Server.MapPath(Url.Content("~/IMG SANPHAM/" + sanPham.MaSP.ToString() + sanPham.Hinh_anh)));
-                img.SaveAs(link);
+                LoaiSP sp = new LoaiSP();
+                try
+                {
+                    if (img != null)
+                    {
+                        string fileName = System.IO.Path.GetFileName(img.FileName);
+                        string filePath = "~/IMG SANPHAM/" + fileName;
+                        img.SaveAs(Server.MapPath(filePath));
+                        db.SanPhams.Add(new SanPham
+                        {
+                            TenSP = sanPham.TenSP,
+                            Mota = sanPham.Mota,
+                            SL = sanPham.SL,
+                            Gia = sanPham.Gia,
+                            Maloai = sanPham.Maloai,
+                            Hinh_anh = fileName
+                        });
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
 
-                db.SanPhams.Add(sanPham);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    }
+                    ViewBag.FileStatus = "File uploaded successfully.";
+                }
+                catch (Exception)
+                {
+                }
                 
             }
 

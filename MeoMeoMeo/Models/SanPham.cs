@@ -11,7 +11,9 @@ namespace MeoMeoMeo.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+
     public partial class SanPham
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,6 +28,8 @@ namespace MeoMeoMeo.Models
         public Nullable<int> SL { get; set; }
         public Nullable<double> Gia { get; set; }
         public string Mota { get; set; }
+
+        [DataType(DataType.Upload)]
         public string Hinh_anh { get; set; }
     
         public virtual LoaiSP LoaiSP { get; set; }

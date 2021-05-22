@@ -6,7 +6,7 @@
 
 <h2>Tạo mới</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create","SanPhams", FormMethod.Post,new { enctype = "multipart/form-data" })) 
 
 {
 @Html.AntiForgeryToken()
@@ -62,25 +62,31 @@
                 @*@Html.EditorFor(model => model.Hinh_anh, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Hinh_anh, "", new { @class = "text-danger" })*@
                 @*<input type="file" name="ImageFile" required />*@
-                <input type="file" name="image" onchange="previewFile()"><br>
-                <img src="" height="100" alt="Image preview...">
-                <script>
-                    function previewFile() {
-                        var preview = document.querySelector('img');
-                        var file = document.querySelector('input[type=file]').files[0];
-                        var reader = new FileReader();
+                @*@Html.TextBox("Hinh_anh", "", new { type = "File"})*@
 
-                        reader.addEventListener("load", function () {
-                            preview.src = reader.result;
-                        }, false);
 
-                        if (file) {
-                            reader.readAsDataURL(file);
-                        }
-                    }
-                </script>
-                @Html.LabelFor(model => model.Hinh_anh, "", new { @class = "form-control" });
-                @Html.ValidationMessageFor(model => model.Hinh_anh)
+                <input type="file" name="img" onchange="previewFile()"><br>
+        <img src="" height="100" alt="Image preview...">
+        <script>
+            function previewFile() {
+                var preview = document.querySelector('img');
+                var file = document.querySelector('input[type=file]').files[0];
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                    preview.src = reader.result;
+                }, false);
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+        </script>
+        @Html.LabelFor(model => model.Hinh_anh, "", new { @class = "form-control" });
+        @Html.ValidationMessageFor(model => model.Hinh_anh)
+
+                @*@Html.EditorFor(model => model.Hinh_anh, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                @Html.ValidationMessageFor(model => model.Hinh_anh, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
