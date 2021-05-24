@@ -17,14 +17,14 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <Property Name="LoaiSP" Type="nvarchar" MaxLength="50" />
           <Property Name="TenSP" Type="nvarchar" MaxLength="100" />
           <Property Name="SL" Type="int" />
-          <Property Name="Gia" Type="money" />
+          <Property Name="Gia" Type="float" />
         </EntityType>
         <EntityType Name="DonHang">
           <Key>
             <PropertyRef Name="MaDH" />
           </Key>
           <Property Name="MaDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ThanhTien" Type="money" />
+          <Property Name="ThanhTien" Type="float" />
           <Property Name="Ngaylap" Type="date" />
           <Property Name="Tinhtrang" Type="nvarchar" MaxLength="50" />
           <Property Name="Nguoitao" Type="nvarchar" MaxLength="50" />
@@ -211,19 +211,6 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CT25Team28Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="DonHang">
-          <Key>
-            <PropertyRef Name="MaDH" />
-          </Key>
-          <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Ngaylap" Type="DateTime" Precision="0" />
-          <Property Name="Tinhtrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Nguoitao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ChiTietDHs" Relationship="Self.FK_ChiTietDH_DonHang" FromRole="DonHang" ToRole="ChiTietDH" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.FK_DonHang_KhachHang" FromRole="DonHang" ToRole="KhachHang" />
-        </EntityType>
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="MaKH" />
@@ -234,9 +221,9 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <Property Name="Diachi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TenDN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="MK" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DonHangs" Relationship="Self.FK_DonHang_KhachHang" FromRole="KhachHang" ToRole="DonHang" />
           <Property Name="MaUR" Type="Int32" />
           <NavigationProperty Name="UserRole" Relationship="CT25Team28Model.FK_KhachHang_UserRole" FromRole="KhachHang" ToRole="UserRole" />
+          <NavigationProperty Name="DonHangs" Relationship="CT25Team28Model.FK_DonHang_KhachHang" FromRole="KhachHang" ToRole="DonHang" />
         </EntityType>
         <EntityType Name="LoaiSP">
           <Key>
@@ -256,58 +243,10 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="ChiTietDH">
-          <Key>
-            <PropertyRef Name="MaDH" />
-            <PropertyRef Name="MaSP" />
-          </Key>
-          <Property Name="MaDH" Type="Int32" Nullable="false" />
-          <Property Name="MaSP" Type="Int32" Nullable="false" />
-          <Property Name="LoaiSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TenSP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SL" Type="Int32" />
-          <Property Name="Gia" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="DonHang" Relationship="Self.FK_ChiTietDH_DonHang" FromRole="ChiTietDH" ToRole="DonHang" />
-          <NavigationProperty Name="SanPham" Relationship="CT25Team28Model.FK_ChiTietDH_SanPham" FromRole="ChiTietDH" ToRole="SanPham" />
-        </EntityType>
-        <Association Name="FK_ChiTietDH_DonHang">
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
-          <End Role="ChiTietDH" Type="Self.ChiTietDH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DonHang">
-              <PropertyRef Name="MaDH" />
-            </Principal>
-            <Dependent Role="ChiTietDH">
-              <PropertyRef Name="MaDH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DonHang_KhachHang">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CT25Team28Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
           <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
           <EntitySet Name="LoaiSPs" EntityType="Self.LoaiSP" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="ChiTietDHs" EntityType="Self.ChiTietDH" />
-          <AssociationSet Name="FK_ChiTietDH_DonHang" Association="Self.FK_ChiTietDH_DonHang">
-            <End Role="DonHang" EntitySet="DonHangs" />
-            <End Role="ChiTietDH" EntitySet="ChiTietDHs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DonHang_KhachHang" Association="Self.FK_DonHang_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="DonHang" EntitySet="DonHangs" />
-          </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -347,6 +286,16 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <AssociationSet Name="FK_SanPham_LoaiSP" Association="CT25Team28Model.FK_SanPham_LoaiSP">
             <End Role="LoaiSP" EntitySet="LoaiSPs" />
             <End Role="SanPham" EntitySet="SanPhams" />
+          </AssociationSet>
+          <EntitySet Name="DonHangs" EntityType="CT25Team28Model.DonHang" />
+          <EntitySet Name="ChiTietDHs" EntityType="CT25Team28Model.ChiTietDH" />
+          <AssociationSet Name="FK_ChiTietDH_DonHang" Association="CT25Team28Model.FK_ChiTietDH_DonHang">
+            <End Role="DonHang" EntitySet="DonHangs" />
+            <End Role="ChiTietDH" EntitySet="ChiTietDHs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonHang_KhachHang" Association="CT25Team28Model.FK_DonHang_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="DonHang" EntitySet="DonHangs" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTietDH_SanPham" Association="CT25Team28Model.FK_ChiTietDH_SanPham">
             <End Role="SanPham" EntitySet="SanPhams" />
@@ -410,6 +359,57 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DonHang">
+          <Key>
+            <PropertyRef Name="MaDH" />
+          </Key>
+          <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThanhTien" Type="Double" />
+          <Property Name="Ngaylap" Type="DateTime" Precision="0" />
+          <Property Name="Tinhtrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nguoitao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaKH" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChiTietDHs" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="DonHang" ToRole="ChiTietDH" />
+          <NavigationProperty Name="KhachHang" Relationship="CT25Team28Model.FK_DonHang_KhachHang" FromRole="DonHang" ToRole="KhachHang" />
+        </EntityType>
+        <EntityType Name="ChiTietDH">
+          <Key>
+            <PropertyRef Name="MaDH" />
+            <PropertyRef Name="MaSP" />
+          </Key>
+          <Property Name="MaDH" Type="Int32" Nullable="false" />
+          <Property Name="MaSP" Type="Int32" Nullable="false" />
+          <Property Name="LoaiSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenSP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SL" Type="Int32" />
+          <Property Name="Gia" Type="Double" />
+          <NavigationProperty Name="DonHang" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="ChiTietDH" ToRole="DonHang" />
+          <NavigationProperty Name="SanPham" Relationship="CT25Team28Model.FK_ChiTietDH_SanPham" FromRole="ChiTietDH" ToRole="SanPham" />
+        </EntityType>
+        <Association Name="FK_ChiTietDH_DonHang">
+          <End Type="CT25Team28Model.DonHang" Role="DonHang" Multiplicity="1" />
+          <End Type="CT25Team28Model.ChiTietDH" Role="ChiTietDH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="MaDH" />
+            </Principal>
+            <Dependent Role="ChiTietDH">
+              <PropertyRef Name="MaDH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonHang_KhachHang">
+          <End Type="CT25Team28Model.KhachHang" Role="KhachHang" Multiplicity="1" />
+          <End Type="CT25Team28Model.DonHang" Role="DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ChiTietDH_SanPham">
           <End Type="CT25Team28Model.SanPham" Role="SanPham" Multiplicity="1" />
           <End Type="CT25Team28Model.ChiTietDH" Role="ChiTietDH" Multiplicity="*" />
@@ -428,18 +428,6 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CT25Team28ModelStoreContainer" CdmEntityContainer="CT25Team28Entities">
-          <EntitySetMapping Name="DonHangs">
-            <EntityTypeMapping TypeName="CT25Team28Model.DonHang">
-              <MappingFragment StoreEntitySet="DonHang">
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-                <ScalarProperty Name="Ngaylap" ColumnName="Ngaylap" />
-                <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
-                <ScalarProperty Name="Nguoitao" ColumnName="Nguoitao" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="KhachHangs">
             <EntityTypeMapping TypeName="CT25Team28Model.KhachHang">
               <MappingFragment StoreEntitySet="KhachHang">
@@ -469,18 +457,6 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ChiTietDHs">
-            <EntityTypeMapping TypeName="CT25Team28Model.ChiTietDH">
-              <MappingFragment StoreEntitySet="ChiTietDH">
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-                <ScalarProperty Name="LoaiSP" ColumnName="LoaiSP" />
-                <ScalarProperty Name="TenSP" ColumnName="TenSP" />
-                <ScalarProperty Name="SL" ColumnName="SL" />
-                <ScalarProperty Name="Gia" ColumnName="Gia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -526,6 +502,30 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
                 <ScalarProperty Name="Maloai" ColumnName="Maloai" />
                 <ScalarProperty Name="TenSP" ColumnName="TenSP" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonHangs">
+            <EntityTypeMapping TypeName="CT25Team28Model.DonHang">
+              <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="Nguoitao" ColumnName="Nguoitao" />
+                <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
+                <ScalarProperty Name="Ngaylap" ColumnName="Ngaylap" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietDHs">
+            <EntityTypeMapping TypeName="CT25Team28Model.ChiTietDH">
+              <MappingFragment StoreEntitySet="ChiTietDH">
+                <ScalarProperty Name="Gia" ColumnName="Gia" />
+                <ScalarProperty Name="SL" ColumnName="SL" />
+                <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+                <ScalarProperty Name="LoaiSP" ColumnName="LoaiSP" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

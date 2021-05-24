@@ -19,6 +19,12 @@ namespace MeoMeoMeo
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 new [] {"MeoMeoMeo.Controllers"}
             );
+            routes.MapRoute(
+               name: "Add Cart",
+               url: "them-gio-hang",
+               defaults: new { controller = "Cart", action = "AddItem", id = UrlParameter.Optional },
+               new[] { "MeoMeoMeo.Controllers" }
+           );
         }
     }
 }

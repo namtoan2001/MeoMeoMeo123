@@ -1,0 +1,30 @@
+﻿@model List<MeoMeoMeo.Models.CartItem>
+
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Tên sản phẩm</td>
+            <td>Số lượng</td>
+            <td>Hình ảnh</td>
+            <td>Giá sản phẩm</td>
+            <td>Thành tiền</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id.TenSP</td>
+                <td><input type="text" class="quantity" value="@item.SoLuong"></td>
+                <td><img src="~/IMG SANPHAM/@item.id.Hinh_anh" width="100" /></td>
+                <td>@item.id.Gia.GetValueOrDefault(0).ToString("N0")</td>
+                <td>@(item.id.Gia.GetValueOrDefault(0) * @item.SoLuong).ToString("N0")</td>
+            </tr>
+        }
+    </tbody>
+</table>

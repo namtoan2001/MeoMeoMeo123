@@ -39,7 +39,9 @@
                         <span class="menu__detail">Tên sản phẩm: @item.TenSP</span>
                         <span class="menu__preci">Giá: @item.Gia VND</span>
                         @Html.ActionLink("Xem chi tiết", "chitietSP", new { id = item.MaSP })
-                        <a href="#" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
+                        <div class="add-cart">
+                            <a href="/them-gio-hang?Masp=@item.MaSP&Soluong=1" class="button menu__button"><i class='bx bx-cart-alt'></i></a>
+                        </div>
                     </div>
                 }
 

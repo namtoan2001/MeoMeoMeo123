@@ -19,7 +19,7 @@ namespace MeoMeoMeo.Models
         public string LoaiSP { get; set; }
         public string TenSP { get; set; }
         public Nullable<int> SL { get; set; }
-        public Nullable<decimal> Gia { get; set; }
+        public Nullable<double> Gia { get; set; }
     
         public virtual DonHang DonHang { get; set; }
         public virtual SanPham SanPham { get; set; }

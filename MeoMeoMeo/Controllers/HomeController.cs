@@ -11,12 +11,14 @@ using System.IO;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using DocumentFormat.OpenXml.Office.CustomUI;
 
 namespace MeoMeoMeo.Controllers
 {
     public class HomeController : Controller
     {
         private CT25Team28Entities db = new CT25Team28Entities();
+        private const string CartSession = "cart";
         public ActionResult Index()
         {
             return View();
@@ -36,10 +38,6 @@ namespace MeoMeoMeo.Controllers
             {
                 link = link.Where(s => s.TenSP.Contains(search));
             }
-            //else
-            //{
-            //    ModelState.AddModelError("", "Không tìm thấy sản phẩm");
-            //}
             return View(link);
         }
         public ActionResult Logout()
@@ -60,5 +58,7 @@ namespace MeoMeoMeo.Controllers
             }
             return View(sanPham);
         }
+       
+        
     }
 }

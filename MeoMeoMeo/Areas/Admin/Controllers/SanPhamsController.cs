@@ -15,8 +15,12 @@ using System.Data.Entity;
 using System.Net;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.Services.UserAccountMapping;
+using MeoMeoMeo.Models;
+
 namespace MeoMeoMeo.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "1")]
     public class SanPhamsController : Controller
     {
         CT25Team28Entities db = new CT25Team28Entities();
@@ -163,6 +167,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             SanPham sanPham = db.SanPhams.Find(id);
             db.SanPhams.Remove(sanPham);
             db.SaveChanges();

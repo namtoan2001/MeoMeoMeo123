@@ -12,15 +12,15 @@ namespace MeoMeoMeo.Models
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+
     public partial class KhachHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        CT25Team28Entities db = new CT25Team28Entities();
         public KhachHang()
         {
             this.DonHangs = new HashSet<DonHang>();
         }
-        CT25Team28Entities db = new CT25Team28Entities();
     
         public int MaKH { get; set; }
         public string TenKH { get; set; }
@@ -30,9 +30,9 @@ namespace MeoMeoMeo.Models
         public string MK { get; set; }
         public Nullable<int> MaUR { get; set; }
     
+        public virtual UserRole UserRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
-        public virtual UserRole UserRole { get; set; }
 
         public bool CheckUserName(string tenDangNhap)
         {

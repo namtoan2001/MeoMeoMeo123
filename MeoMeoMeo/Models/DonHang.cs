@@ -21,7 +21,7 @@ namespace MeoMeoMeo.Models
         }
     
         public int MaDH { get; set; }
-        public Nullable<decimal> ThanhTien { get; set; }
+        public Nullable<double> ThanhTien { get; set; }
         public Nullable<System.DateTime> Ngaylap { get; set; }
         public string Tinhtrang { get; set; }
         public string Nguoitao { get; set; }
