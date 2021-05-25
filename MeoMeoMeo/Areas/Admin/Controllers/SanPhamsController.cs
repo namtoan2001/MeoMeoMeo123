@@ -8,19 +8,15 @@ using System.Web;
 using System.Web.Mvc;
 using MeoMeoMeo.Models;
 using System.IO;
-using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-using System.Data.Entity;
-using System.Net;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Services.UserAccountMapping;
-using MeoMeoMeo.Models;
 
 namespace MeoMeoMeo.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "1")]
+
     public class SanPhamsController : Controller
     {
         CT25Team28Entities db = new CT25Team28Entities();
