@@ -28,10 +28,16 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
                 }
                 else
                 {
+                    Session["TenDangNhap"] = user.TenDN.ToString();
                     return RedirectToAction("Index", "SanPhams");
                 }
             }
             return View(login);
+        }
+        public ActionResult Logout()
+        {
+            Session["TenDangNhap"] = null;
+            return RedirectToAction("/");
         }
     }
 }

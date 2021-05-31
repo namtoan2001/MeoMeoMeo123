@@ -320,7 +320,6 @@
     <Content Include="Views\DangNhap\Login.cshtml" />
     <Content Include="Views\Home\SanPham.cshtml" />
     <Content Include="Views\Home\chitietSP.cshtml" />
-    <Content Include="Views\Home\Item.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

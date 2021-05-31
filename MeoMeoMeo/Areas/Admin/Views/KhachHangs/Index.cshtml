@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Index";
+    if(Session["TenDangNhap"] == null)
+    {
+        return RedirectToRouteResult("");
+    }
 }
 
 <h2>Index</h2>

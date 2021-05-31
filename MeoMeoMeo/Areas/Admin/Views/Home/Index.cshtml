@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Đăng Nhập";
 }
-
+        
 <h2>Đăng Nhập</h2>
 
 <div class="body-content">
@@ -13,7 +13,6 @@
         @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4></h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
