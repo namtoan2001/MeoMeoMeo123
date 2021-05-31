@@ -1,30 +1,56 @@
-﻿@model List<MeoMeoMeo.Models.CartItem>
+﻿@model IEnumerable<MeoMeoMeo.Models.ChiTietDH>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <td>Tên sản phẩm</td>
-            <td>Số lượng</td>
-            <td>Hình ảnh</td>
-            <td>Giá sản phẩm</td>
-            <td>Thành tiền</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="~/Content/CartStyle.css">
+</head>
+<body>
+    <div class="small-container cart-page">
+        <table>
             <tr>
-                <td>@item.id.TenSP</td>
-                <td><input type="text" class="quantity" value="@item.SoLuong"></td>
-                <td><img src="~/IMG SANPHAM/@item.id.Hinh_anh" width="100" /></td>
-                <td>@item.id.Gia.GetValueOrDefault(0).ToString("N0")</td>
-                <td>@(item.id.Gia.GetValueOrDefault(0) * @item.SoLuong).ToString("N0")</td>
+                <th>Sản Phẩm</th>
+                <th>Số Lượng</th>
+                <th>Thành tiền</th>
             </tr>
-        }
-    </tbody>
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="~/IMG SANPHAM/@item.SanPham.Hinh_anh" width="150">
+                            <div>
+                                <p>Tên sản phẩm: @item.SanPham.TenSP</p>
+                                <small>Giá: @item.SanPham.Gia.GetValueOrDefault(0).ToString("N0") VND</small>
+                                <br>
+                                <a href="">Xóa sản phẩm</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td><input type="number" value=@item.SL min="1" max="99"></td>          
+                    <td>    
+                        @((item.SanPham.Gia * item.SL).GetValueOrDefault(0).ToString("N0")) VND
+                    </td>
+                </tr>
+                @*<div class="total-price">
+                    <table>
+                        <tr>
+                            <td>Total</td>
+                            <td>@((item.SanPham.Gia * item.SL)) VND</td>
+                        </tr>
+                    </table>
+                </div>*@
+            }
+            </table>
+    </div>
+</body>
+</html>

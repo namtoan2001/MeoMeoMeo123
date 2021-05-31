@@ -1,62 +1,89 @@
-﻿using MeoMeoMeo.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MeoMeoMeo.Models;
 
 namespace MeoMeoMeo.Controllers
 {
     public class CartController : Controller
     {
-        // GET: Cart
         CT25Team28Entities db = new CT25Team28Entities();
-        private const string CartSession = "cart";
-        public ActionResult Index()
+        private List<ChiTietDH> cart = null;
+        public CartController()
         {
-            var cart = Session[CartSession];
-            var list = new List<CartItem>();
-            if (cart != null)
-            {
-                list = (List<CartItem>)cart;
-            }
-            return View(list);
-        }
-        public ActionResult AddItem(int Masp, int Soluong)
-        {
-            var cart = Session[CartSession];
-            if (cart != null)
-            {
-                var list = (List<CartItem>)cart;
-                if (list.Exists(x => x.id.MaSP == Masp))
-                {
-                    foreach (var item in list)
-                    {
-                        if (item.id.MaSP == Masp)
-                        {
-                            item.SoLuong += Soluong;
-                        }
-                    }
-                }
-                else
-                {
-                    var item = new CartItem();
-                    item.id.MaSP = Masp;
-                    item.SoLuong = Soluong;
-                    list.Add(item);
-                }
-                Session[CartSession] = list;
-            }
+            var Session = System.Web.HttpContext.Current.Session;
+            if (Session["cart"] != null)
+                cart = Session["cart"] as List<ChiTietDH>;
             else
             {
-                var item = new CartItem();
-                item.id.MaSP = Masp;
-                item.SoLuong = Soluong;
-                var list = new List<CartItem>();
-                list.Add(item);
-                Session[CartSession] = list;
+                cart = new List<ChiTietDH>();
+                Session["cart"] = cart;
             }
+        }
+
+        // GET: Cart
+        public ActionResult Index()
+        {
+            return View(cart);
+        }
+
+        // GET: Cart/Create
+        [HttpPost]
+        public ActionResult AddtoCart(int productid,int soluong)
+        {
+            var product = db.SanPhams.Find(productid);
+            cart.Add(new ChiTietDH
+            {
+                SanPham = product,
+                SL = soluong
+            });
             return RedirectToAction("Index");
+        }
+
+        // GET: Cart/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ChiTietDH chiTietDH = db.ChiTietDHs.Find(id);
+            if (chiTietDH == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
+            ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP", chiTietDH.MaSP);
+            return View(chiTietDH);
+        }
+
+        // POST: Cart/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "MaDH,MaSP,LoaiSP,TenSP,SL,Gia")] ChiTietDH chiTietDH)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(chiTietDH).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
+            ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP", chiTietDH.MaSP);
+            return View(chiTietDH);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
