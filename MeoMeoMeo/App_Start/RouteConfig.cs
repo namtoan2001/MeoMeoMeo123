@@ -14,17 +14,47 @@ namespace MeoMeoMeo
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "DangNhap",
+               url: "Dang-Nhap",
+               defaults: new { controller = "DangNhap", action = "Login", id = UrlParameter.Optional },
+               new[] { "MeoMeoMeo.Controllers" }
+           );
+
+            routes.MapRoute(
+               name: "DangKi",
+               url: "Dang-Ki",
+               defaults: new { controller = "DangNhap", action = "Dangki", id = UrlParameter.Optional },
+               new[] { "MeoMeoMeo.Controllers" }
+           );
+
+            routes.MapRoute(
+              name: "SanPham",
+              url: "San-Pham",
+              defaults: new { controller = "Home", action = "SanPham", id = UrlParameter.Optional },
+              new[] { "MeoMeoMeo.Controllers" }
+          );
+
+            routes.MapRoute(
+               name: "ChitietSP",
+               url: "San-Pham/{id}",
+               defaults: new { controller = "Home", action = "chitietSP", id = UrlParameter.Optional },
+               new[] { "MeoMeoMeo.Controllers" }
+           );
+
+            routes.MapRoute(
+              name: "GioHang",
+              url: "Gio-Hang",
+              defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
+              new[] { "MeoMeoMeo.Controllers" }
+          );
+
+            routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "{controller}/{Action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 new [] {"MeoMeoMeo.Controllers"}
             );
-            routes.MapRoute(
-               name: "Add Cart",
-               url: "them-gio-hang",
-               defaults: new { controller = "Cart", action = "AddItem", id = UrlParameter.Optional },
-               new[] { "MeoMeoMeo.Controllers" }
-           );
+            
         }
     }
 }

@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Sản phẩm";
+    if(Session["TenDangNhap"] == null)
+    {
+        Response.Redirect("/Admin");
+    }
 }
 
 <h2>Sản phẩm</h2>

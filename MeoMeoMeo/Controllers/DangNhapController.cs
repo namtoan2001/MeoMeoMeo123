@@ -31,7 +31,7 @@ namespace MeoMeoMeo.Controllers
                 }
                 else
                 {
-                    Session["TenDangNhap"] = user.TenDN.ToString();
+                    Session["TenDangNhap"] = user.TenKH.ToString();
                     return RedirectToAction("Index","Home");
                     
                 }

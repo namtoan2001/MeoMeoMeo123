@@ -1,8 +1,12 @@
 ﻿@model IEnumerable<MeoMeoMeo.Models.ChiTietDH>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Giỏ Hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["TenDangNhap"] == null)
+    {
+        Response.Redirect("~/Dang-Nhap");
+    }
 }
 
 <!DOCTYPE html>
@@ -13,11 +17,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="~/Content/CartStyle.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/Content/Style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />*@
 </head>
 <body>
     <div class="small-container cart-page">
         <table>
             <tr>
+                <th></th>
                 <th>Sản Phẩm</th>
                 <th>Số Lượng</th>
                 <th>Thành tiền</th>
@@ -25,17 +35,21 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
-                        <div class="cart-info">
+                    
+                        @*<div class="cart-info">*@
+                            <td>
                             <img src="~/IMG SANPHAM/@item.SanPham.Hinh_anh" width="150">
+                                </td>
+                            <td>
                             <div>
                                 <p>Tên sản phẩm: @item.SanPham.TenSP</p>
                                 <small>Giá: @item.SanPham.Gia.GetValueOrDefault(0).ToString("N0") VND</small>
                                 <br>
                                 <a href="">Xóa sản phẩm</a>
                             </div>
-                        </div>
-                    </td>
+                                </td>
+                       
+                    
                     <td><input type="number" value=@item.SL min="1" max="99"></td>          
                     <td>    
                         @((item.SanPham.Gia * item.SL).GetValueOrDefault(0).ToString("N0")) VND

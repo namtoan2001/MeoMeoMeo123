@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<MeoMeoMeo.Models.KhachHang>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Khách Hàng";
     if(Session["TenDangNhap"] == null)
     {
-        return RedirectToRouteResult("");
+        Response.Redirect("/Admin");
     }
 }
 
-<h2>Index</h2>
+<h2>Khách Hàng</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
