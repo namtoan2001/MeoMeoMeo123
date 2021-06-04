@@ -8,6 +8,7 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" type="text/css" href="~/Content/Style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -23,7 +24,7 @@
                     <li class="nav__item"><a href=@Url.Action("SanPham","Home") class="nav__link">Product</a></li>
                     <li class="nav__item"><a href="#contact" class="nav__link">Contact us</a></li>
                     <li class="nav__item"><a href=@Url.Action("Login","DangNhap") class="nav__link"><i class="far fa-user"></i></a></li>
-                    <li class="nav__item"><a href="#" class="nav__link"><i class='fas fa-shopping-basket' id="theme-button"></i></a></li>
+                    <li class="nav__item"><a href=@Url.Action("Index","Cart") class="nav__link"><i class='fas fa-shopping-basket' id="theme-button"></i></a></li>
                     <li class="nav__item">
                          @if(Session["TenDangNhap"] != null)
                          {

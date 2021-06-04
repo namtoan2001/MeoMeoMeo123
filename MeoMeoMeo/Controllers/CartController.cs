@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -29,12 +30,29 @@ namespace MeoMeoMeo.Controllers
         // GET: Cart
         public ActionResult Index()
         {
+            var hashtable = new Hashtable();
+            foreach(var ChitietDH in cart)
+            {
+                if (hashtable[ChitietDH.SanPham.MaSP] != null)
+                {
+                    (hashtable[ChitietDH.SanPham.MaSP] as ChiTietDH).SL += ChitietDH.SL;
+                }
+                else
+                {
+                    hashtable[ChitietDH.SanPham.MaSP] = ChitietDH;
+                }
+            }
+            cart.Clear();
+            foreach(ChiTietDH chitietDH in hashtable.Values)
+            {
+                cart.Add(chitietDH);
+            }
+            ViewBag.Success = "Không có sản phẩm nào trong giỏ hàng";
             return View(cart);
         }
 
-        // GET: Cart/Create
         [HttpPost]
-        public ActionResult AddtoCart(int productid,int soluong)
+        public ActionResult AddtoCart(int productid,int soluong=1)
         {
             var product = db.SanPhams.Find(productid);
             cart.Add(new ChiTietDH
@@ -45,6 +63,17 @@ namespace MeoMeoMeo.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult UpdateCart([FromForm] int productid, [FromForm] int soluong)
+        {
+            cart = (List<ChiTietDH>)Session["cart"];
+            var product = cart.Find(p => p.SanPham.MaSP == productid);
+            if (product != null)
+            {
+                product.SL = soluong;
+            }
+            Session["cart"] = cart;
+            return RedirectToAction("Index");
+        }
         // GET: Cart/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -76,6 +105,17 @@ namespace MeoMeoMeo.Controllers
             ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
             ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP", chiTietDH.MaSP);
             return View(chiTietDH);
+        }
+        public ActionResult xoaSP(int id)
+        {
+            cart = (List<ChiTietDH>)Session["cart"];
+            var product = cart.Find(p => p.SanPham.MaSP == id);
+            if (product != null)
+            {
+                cart.Remove(product);
+            }
+            Session["cart"] = cart;
+            return RedirectToAction("Index");
         }
         protected override void Dispose(bool disposing)
         {

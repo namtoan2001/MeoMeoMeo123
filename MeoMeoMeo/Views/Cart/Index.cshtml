@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="~/Content/Style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
-    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
 </head>
 <body>
     <div class="small-container cart-page">
@@ -31,40 +31,68 @@
                 <th>Sản Phẩm</th>
                 <th>Số Lượng</th>
                 <th>Thành tiền</th>
+                <th></th>
             </tr>
+
             @foreach (var item in Model)
             {
-                <tr>
-                    
-                        @*<div class="cart-info">*@
-                            <td>
-                            <img src="~/IMG SANPHAM/@item.SanPham.Hinh_anh" width="150">
-                                </td>
-                            <td>
-                            <div>
-                                <p>Tên sản phẩm: @item.SanPham.TenSP</p>
-                                <small>Giá: @item.SanPham.Gia.GetValueOrDefault(0).ToString("N0") VND</small>
-                                <br>
-                                <a href="">Xóa sản phẩm</a>
-                            </div>
-                                </td>
-                       
-                    
-                    <td><input type="number" value=@item.SL min="1" max="99"></td>          
-                    <td>    
-                        @((item.SanPham.Gia * item.SL).GetValueOrDefault(0).ToString("N0")) VND
-                    </td>
-                </tr>
-                @*<div class="total-price">
-                    <table>
-                        <tr>
-                            <td>Total</td>
-                            <td>@((item.SanPham.Gia * item.SL)) VND</td>
-                        </tr>
-                    </table>
-                </div>*@
+        <tr>
+            @*<div class="cart-info">*@
+            <td>
+                <img src="~/IMG SANPHAM/@item.SanPham.Hinh_anh" width="150">
+            </td>
+            <td>
+                <div>
+                    <p>
+                        Tên sản phẩm: @item.SanPham.TenSP
+                    </p>
+                    <small>Giá: @item.SanPham.Gia.GetValueOrDefault(0).ToString("N0") VND</small>
+                    <br>
+                    @using (Html.BeginForm("xoaSP", "Cart"))
+                    {
+
+                        <input type="hidden" value="@item.SanPham.MaSP" name="id" />
+                        <button type="submit" class="btn">Xóa sản phẩm</button>
+                    }
+                </div>
+            </td>
+            <td>
+
+
+                <input type="hidden" value="@item.SanPham.MaSP" name="productid" />
+                <input type="number" class="input-group" value=@item.SL name="soluong" />
+
+            </td>
+            <td>
+                @((item.SanPham.Gia * item.SL).GetValueOrDefault(0).ToString("N0")) VND
+            </td>
+            <td>
+                @using (Html.BeginForm("xoaSP", "Cart"))
+                {
+
+                    <input type="hidden" value="@item.SanPham.MaSP" name="id" />
+                    <button type="submit" class="btn">Xóa sản phẩm</button>
+                }
+            </td>
+        </tr>
             }
+
+            @*<div class="total-price">
+            <table>
+                <tr>
+                    <td>Total</td>
+                    <td>VND</td>
+                </tr>
             </table>
+        </div>*@
+        </table>
+        <p>
+            @*@Html.ActionLink("Tiếp tục mua hàng","SanPham","Home",new {@class="button" })*@
+            <a href=@Url.Action("SanPham", "Home") class="button">Tiếp tục mua hàng</a>
+                <input type="submit" class="btn button bt-dangnhap" value="Cập nhật" />
+                <a href=@Url.Action("Home", "SanPham") class="button">Thanh toán</a>
+            </p>
     </div>
-</body>
+    </body>
+
 </html>

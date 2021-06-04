@@ -16,12 +16,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
+        
     <h2>Đăng Nhập</h2>
-    <div class="body-content">
+        <div class="body-content">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
             <div class="form-horizontal">
                 <h4></h4>
                 <hr />
@@ -45,7 +45,7 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Đăng Nhập" class="btn btn-default" />
+                        <input type="submit" value="Đăng Nhập" class="btn button bt-dangnhap" />
                     </div>
                 </div>
                 <p><a href=@Url.Action("DangKi","DangNhap")>Đăng kí</a></p>

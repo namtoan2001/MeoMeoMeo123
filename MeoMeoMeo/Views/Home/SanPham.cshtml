@@ -14,35 +14,43 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="~/Content/Style.css">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
 </head>
 <body>
     <header>
     </header>
-        <section class="menu section bd-container" id="menu">
-            <span class="section-subtitle"></span>
-            <h2 class="section-title">Sản Phẩm</h2>
-            @using (Html.BeginForm())
-            {
-                <div class="text-center">
-                    Tìm kiếm sản phẩm: @Html.TextBox("search")
-                    <input class="button" type="submit" value="Tìm kiếm">
-                </div>
-            }
+    <section class="menu section bd-container" id="menu">
+        <span class="section-subtitle"></span>
+        <h2 class="section-title">Sản Phẩm</h2>
+        @using (Html.BeginForm())
+        {
+            <div class="text-center glyphicon-text-size">
+                Tìm kiếm sản phẩm: @Html.TextBox("search", "", new { @class = "glyphicon-text-background"})
+                <input class="btn button bt-dangnhap" type="submit" value="Tìm kiếm" >
+            </div>
+        }
 
-            <div class="menu__container bd-grid">
-                @foreach (var item in Model)
-                {
-                    <div class="menu__content">
-                        <img src="~/IMG SANPHAM/@item.Hinh_anh" alt="@item.Hinh_anh" class="menu__img">
-                        <h3 class="menu__name"></h3>
-                        <span class="menu__detail">Tên sản phẩm: @item.TenSP</span>
-                        <span class="menu__preci">Giá: @item.Gia.GetValueOrDefault(0).ToString("N0") VND</span>
-                        @Html.ActionLink("Xem chi tiết", "chitietSP", new { id = item.MaSP })
-                        <div class="add-cart">
-                            <a href=@Url.Action("AddtoCart","Cart") class="button menu__button"><i class='bx bx-cart-alt'></i></a>
-                        </div>
+        <div class="menu__container bd-grid">
+            @foreach (var item in Model)
+            {
+            <form action="@Url.Action("AddtoCart","Cart")" method="post">
+                <input type="hidden" name="productid" value="@item.MaSP" />
+                <div class="menu__content">
+                    <img src="~/IMG SANPHAM/@item.Hinh_anh" alt="@item.Hinh_anh" class="menu__img">
+                    <h3 class="menu__name"></h3>
+                    <span class="menu__detail">Tên sản phẩm: @item.TenSP</span>
+                    <span class="menu__preci">Giá: @item.Gia.GetValueOrDefault(0).ToString("N0") VND</span>
+                    @Html.ActionLink("Xem chi tiết", "chitietSP", new { id = item.MaSP })
+                    @*<form action="@Url.Action("AddtoCart","Cart")" method="post">*@
+
+                    <div class="add-cart text-right">
+                        <button type="submit" class="btn button bt-dangnhap"><i class='bx bx-cart-alt'></i></button>
                     </div>
-                }
+                    @*<a href=@Url.Action("AddtoCart","Cart") name="productid" class="button menu__button"><i class='bx bx-cart-alt'></i></a>*@
+
+                </div>
+            </form>
+        }
 
 
             </div>

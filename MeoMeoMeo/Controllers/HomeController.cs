@@ -23,7 +23,7 @@ namespace MeoMeoMeo.Controllers
             return View();
 
         }
-        public ActionResult SanPham()
+        public ActionResult sanPham()
         {
             var sp = db.SanPhams.Include(s => s.LoaiSP);
             return View(sp.ToList());
@@ -57,6 +57,5 @@ namespace MeoMeoMeo.Controllers
             }
             return View(sanPham);
         }
-        
     }
 }

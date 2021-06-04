@@ -70,10 +70,6 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.SanPhams.Add(sanPham);
-                //db.SaveChanges();
-                //img.SaveAs("E:/Project C#/MeoMeoMeo/MeoMeoMeo/IMG SANPHAM/" + sanPham.MaSP.ToString() + sanPham.Hinh_anh);
-                //img.SaveAs(Server.MapPath(Url.Content("~/IMG SANPHAM/" + sanPham.MaSP.ToString() + sanPham.Hinh_anh)));
                 LoaiSP sp = new LoaiSP();
                 try
                 {
