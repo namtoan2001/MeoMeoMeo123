@@ -63,7 +63,7 @@ namespace MeoMeoMeo.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult UpdateCart([FromForm] int productid, [FromForm] int soluong)
+        public ActionResult UpdateCart([Microsoft.AspNetCore.Mvc.FromForm] int productid, [Microsoft.AspNetCore.Mvc.FromForm] int soluong)
         {
             cart = (List<ChiTietDH>)Session["cart"];
             var product = cart.Find(p => p.SanPham.MaSP == productid);
@@ -74,38 +74,7 @@ namespace MeoMeoMeo.Controllers
             Session["cart"] = cart;
             return RedirectToAction("Index");
         }
-        // GET: Cart/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ChiTietDH chiTietDH = db.ChiTietDHs.Find(id);
-            if (chiTietDH == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
-            ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP", chiTietDH.MaSP);
-            return View(chiTietDH);
-        }
-
-        // POST: Cart/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDH,MaSP,LoaiSP,TenSP,SL,Gia")] ChiTietDH chiTietDH)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(chiTietDH).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
-            ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP", chiTietDH.MaSP);
-            return View(chiTietDH);
-        }
+       
         public ActionResult xoaSP(int id)
         {
             cart = (List<ChiTietDH>)Session["cart"];
@@ -115,6 +84,43 @@ namespace MeoMeoMeo.Controllers
                 cart.Remove(product);
             }
             Session["cart"] = cart;
+            return RedirectToAction("Index");
+        }
+        public ActionResult checkout()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddOrder()
+        {
+            int orderid = 0;
+            cart = Session["cart"] as List<ChiTietDH>;
+            ChiTietDH chitiet = new ChiTietDH();
+            KhachHang kh = new KhachHang();
+            DonHang dh = new DonHang()
+            {
+                Ngaylap = DateTime.Now,
+                MaKH = kh.MaKH,
+                MaDH = chitiet.MaDH,
+                Nguoitao = kh.TenKH,
+                ThanhTien = chitiet.Gia,
+                Tinhtrang = "Ổn"
+            };
+            db.DonHangs.Add(dh);
+            db.SaveChanges();
+            orderid = dh.MaDH;
+            foreach (var item in cart)
+            {
+                chitiet.Gia = item.Gia;
+                chitiet.MaSP = item.MaSP;
+                chitiet.MaDH = item.MaDH;
+                chitiet.SL = item.SL;
+                chitiet.TenSP = item.TenSP;
+                db.ChiTietDHs.Add(chitiet);
+                db.SaveChanges();
+            }
+            Session["cart"] = null;
             return RedirectToAction("Index");
         }
         protected override void Dispose(bool disposing)
