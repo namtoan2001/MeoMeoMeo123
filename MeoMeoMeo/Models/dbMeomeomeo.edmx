@@ -5,12 +5,9 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CT25Team28Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ChiTietDH">
           <Key>
-            <PropertyRef Name="MaDH" />
-            <PropertyRef Name="MaSP" />
+            <PropertyRef Name="MaChiTietDH" />
           </Key>
           <Property Name="MaDH" Type="int" Nullable="false" />
           <Property Name="MaSP" Type="int" Nullable="false" />
@@ -18,6 +15,7 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <Property Name="TenSP" Type="nvarchar" MaxLength="100" />
           <Property Name="SL" Type="int" />
           <Property Name="Gia" Type="float" />
+          <Property Name="MaChiTietDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DonHang">
           <Key>
@@ -170,22 +168,13 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CT25Team28ModelStoreContainer">
+          <EntitySet Name="ChiTietDH" EntityType="Self.ChiTietDH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiSP" EntityType="Self.LoaiSP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChiTietDH" EntityType="Self.ChiTietDH" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ChiTietDH].[MaDH] AS [MaDH], 
-    [ChiTietDH].[MaSP] AS [MaSP], 
-    [ChiTietDH].[LoaiSP] AS [LoaiSP], 
-    [ChiTietDH].[TenSP] AS [TenSP], 
-    [ChiTietDH].[SL] AS [SL], 
-    [ChiTietDH].[Gia] AS [Gia]
-    FROM [dbo].[ChiTietDH] AS [ChiTietDH]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_ChiTietDH_DonHang" Association="Self.FK_ChiTietDH_DonHang">
             <End Role="DonHang" EntitySet="DonHang" />
             <End Role="ChiTietDH" EntitySet="ChiTietDH" />
@@ -288,20 +277,20 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
             <End Role="SanPham" EntitySet="SanPhams" />
           </AssociationSet>
           <EntitySet Name="DonHangs" EntityType="CT25Team28Model.DonHang" />
+          <AssociationSet Name="FK_DonHang_KhachHang" Association="CT25Team28Model.FK_DonHang_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="DonHang" EntitySet="DonHangs" />
+          </AssociationSet>
           <EntitySet Name="ChiTietDHs" EntityType="CT25Team28Model.ChiTietDH" />
           <AssociationSet Name="FK_ChiTietDH_DonHang" Association="CT25Team28Model.FK_ChiTietDH_DonHang">
             <End Role="DonHang" EntitySet="DonHangs" />
             <End Role="ChiTietDH" EntitySet="ChiTietDHs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DonHang_KhachHang" Association="CT25Team28Model.FK_DonHang_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="DonHang" EntitySet="DonHangs" />
-          </AssociationSet>
           <AssociationSet Name="FK_ChiTietDH_SanPham" Association="CT25Team28Model.FK_ChiTietDH_SanPham">
             <End Role="SanPham" EntitySet="SanPhams" />
             <End Role="ChiTietDH" EntitySet="ChiTietDHs" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -369,13 +358,24 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <Property Name="Tinhtrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Nguoitao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ChiTietDHs" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="DonHang" ToRole="ChiTietDH" />
           <NavigationProperty Name="KhachHang" Relationship="CT25Team28Model.FK_DonHang_KhachHang" FromRole="DonHang" ToRole="KhachHang" />
+          <NavigationProperty Name="ChiTietDHs" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="DonHang" ToRole="ChiTietDH" />
         </EntityType>
+        <Association Name="FK_DonHang_KhachHang">
+          <End Type="CT25Team28Model.KhachHang" Role="KhachHang" Multiplicity="1" />
+          <End Type="CT25Team28Model.DonHang" Role="DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="ChiTietDH">
           <Key>
-            <PropertyRef Name="MaDH" />
-            <PropertyRef Name="MaSP" />
+            <PropertyRef Name="MaChiTietDH" />
           </Key>
           <Property Name="MaDH" Type="Int32" Nullable="false" />
           <Property Name="MaSP" Type="Int32" Nullable="false" />
@@ -383,6 +383,7 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <Property Name="TenSP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SL" Type="Int32" />
           <Property Name="Gia" Type="Double" />
+          <Property Name="MaChiTietDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="DonHang" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="ChiTietDH" ToRole="DonHang" />
           <NavigationProperty Name="SanPham" Relationship="CT25Team28Model.FK_ChiTietDH_SanPham" FromRole="ChiTietDH" ToRole="SanPham" />
         </EntityType>
@@ -398,18 +399,6 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DonHang_KhachHang">
-          <End Type="CT25Team28Model.KhachHang" Role="KhachHang" Multiplicity="1" />
-          <End Type="CT25Team28Model.DonHang" Role="DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ChiTietDH_SanPham">
           <End Type="CT25Team28Model.SanPham" Role="SanPham" Multiplicity="1" />
           <End Type="CT25Team28Model.ChiTietDH" Role="ChiTietDH" Multiplicity="*" />
@@ -422,7 +411,7 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -520,6 +509,7 @@ warning 6002: The table/view 'CT25Team28.dbo.ChiTietDH' does not have a primary 
           <EntitySetMapping Name="ChiTietDHs">
             <EntityTypeMapping TypeName="CT25Team28Model.ChiTietDH">
               <MappingFragment StoreEntitySet="ChiTietDH">
+                <ScalarProperty Name="MaChiTietDH" ColumnName="MaChiTietDH" />
                 <ScalarProperty Name="Gia" ColumnName="Gia" />
                 <ScalarProperty Name="SL" ColumnName="SL" />
                 <ScalarProperty Name="TenSP" ColumnName="TenSP" />

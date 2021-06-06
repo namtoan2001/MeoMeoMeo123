@@ -13,9 +13,9 @@
         <EntityTypeShape EntityType="CT25Team28Model.SanPham" Width="1.5" PointX="6.625" PointY="4.625" />
         <AssociationConnector Association="CT25Team28Model.FK_SanPham_LoaiSP" />
         <EntityTypeShape EntityType="CT25Team28Model.DonHang" Width="1.5" PointX="5.25" PointY="1.125" />
-        <EntityTypeShape EntityType="CT25Team28Model.ChiTietDH" Width="1.5" PointX="9.125" PointY="2" IsExpanded="true" />
-        <AssociationConnector Association="CT25Team28Model.FK_ChiTietDH_DonHang" />
         <AssociationConnector Association="CT25Team28Model.FK_DonHang_KhachHang" />
+        <EntityTypeShape EntityType="CT25Team28Model.ChiTietDH" Width="1.5" PointX="8.875" PointY="2.875" />
+        <AssociationConnector Association="CT25Team28Model.FK_ChiTietDH_DonHang" />
         <AssociationConnector Association="CT25Team28Model.FK_ChiTietDH_SanPham" />
         </Diagram>
     </edmx:Diagrams>

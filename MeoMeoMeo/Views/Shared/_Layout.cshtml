@@ -15,23 +15,30 @@
 <body>
     <header class="l-header" id="header">
         <nav class="nav bd-container">
-            <a href=@Url.Action("index","Home") class="nav__logo">PetFoodShop</a>
+            <a href=@Url.Action("index", "Home") class="nav__logo">PetFoodShop</a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li class="nav__item"><a href=@Url.Action("","Home") class="nav__link active-link">Home</a></li>
+                    <li class="nav__item"><a href=@Url.Action("", "Home") class="nav__link active-link">Home</a></li>
                     <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                    <li class="nav__item"><a href=@Url.Action("SanPham","Home") class="nav__link">Product</a></li>
+                    <li class="nav__item"><a href=@Url.Action("SanPham", "Home") class="nav__link">Product</a></li>
                     <li class="nav__item"><a href="#contact" class="nav__link">Contact us</a></li>
-                    <li class="nav__item"><a href=@Url.Action("Login","DangNhap") class="nav__link"><i class="far fa-user"></i></a></li>
+                    @if (Session["TenDangNhap"] == null)
+                    {
+                        <li class="nav__item"><a href=@Url.Action("Login", "DangNhap") class="nav__link"><i class="far fa-user"></i></a></li>
+                    }
+                    else
+                    {
+
+                    }
                     <li class="nav__item"><a href=@Url.Action("Index","Cart") class="nav__link"><i class='fas fa-shopping-basket' id="theme-button"></i></a></li>
                     <li class="nav__item">
-                         @if(Session["TenDangNhap"] != null)
-                         {
+                        @if (Session["TenDangNhap"] != null)
+                        {
                             <label>Wellcome @Session["TenDangNhap"].ToString() | </label>
                             <label>@Html.ActionLink("log out", "logout", "Home")</label>
-                         }
-                         </li>
+                        }
+                    </li>
                 </ul>
             </div>
 

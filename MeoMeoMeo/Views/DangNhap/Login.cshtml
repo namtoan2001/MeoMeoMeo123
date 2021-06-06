@@ -3,6 +3,10 @@
 @{
     ViewBag.Title = "Đăng Nhập";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["TenDangNhap"] != null)
+    {
+        Response.Redirect("~/Home");
+    }
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +25,6 @@
         <div class="body-content">
         @using (Html.BeginForm())
         {
-            @Html.AntiForgeryToken()
             <div class="form-horizontal">
                 <h4></h4>
                 <hr />

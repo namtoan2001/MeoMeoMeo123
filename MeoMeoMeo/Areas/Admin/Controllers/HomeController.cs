@@ -28,15 +28,23 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
                 }
                 else
                 {
-                    Session["TenDangNhap"] = user.TenKH.ToString();
-                    return RedirectToAction("Index", "SanPhams");
+                    Session["Admin"] = user.TenKH;
+                    Session["UserRoles"] = user.MaUR;
+                    if (Convert.ToInt32(Session["UserRoles"]) == 1)
+                    {
+                        return RedirectToAction("Index", "SanPhams");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Tài khoản không có quyền truy cập");
+                    }
                 }
             }
             return View(login);
         }
         public ActionResult Logout()
         {
-            Session["TenDangNhap"] = null;
+            Session["Admin"] = null;
             return RedirectToAction("/");
         }
     }

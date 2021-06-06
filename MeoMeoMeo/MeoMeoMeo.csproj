@@ -338,6 +338,7 @@
     <Content Include="Content\CartStyle.css" />
     <Content Include="Content\IMG\1.png" />
     <Content Include="Content\IMG\2.jpg" />
+    <Content Include="Content\IMG\kisspng-shopping-cart-online-shopping-shopping-centre-imag-5c6c1417bf2b28.990778921550586903783-removebg-preview.png" />
     <Content Include="Content\LoginStyle.css" />
     <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
@@ -435,6 +436,8 @@
     <Content Include="Views\Home\SanPham.cshtml" />
     <Content Include="Views\Home\chitietSP.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\checkout.cshtml" />
+    <Content Include="Views\Cart\OrderSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

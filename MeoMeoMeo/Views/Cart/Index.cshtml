@@ -86,10 +86,7 @@
             <p>
                 <div class="text-right">
                     <a href=@Url.Action("SanPham", "Home") class="button btn">Tiếp tục mua hàng</a>
-                    @using (Html.BeginForm("AddOrder", "Cart", FormMethod.Post))
-                    {
-                        <input type="submit" class="btn button bt-dangnhap"/>
-                    }
+                    <a href=@Url.Action("checkout", "Cart") class="button btn">Thanh toán</a>
                 </div>
             </p>
         </div>

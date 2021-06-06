@@ -18,7 +18,10 @@ namespace MeoMeoMeo.Controllers
         {
             return View();
         }
-
+        public bool CheckUserName(string tenDangNhap)
+        {
+            return db.KhachHangs.Count(x => x.TenDN == tenDangNhap) > 0;
+        }
         [HttpPost]
         public ActionResult Login(LoginModel login)
         {
@@ -32,6 +35,7 @@ namespace MeoMeoMeo.Controllers
                 else
                 {
                     Session["TenDangNhap"] = user.TenKH.ToString();
+                    Session["MaKH"] = user.MaKH;
                     return RedirectToAction("Index","Home");
                     
                 }
@@ -50,7 +54,7 @@ namespace MeoMeoMeo.Controllers
             if (ModelState.IsValid)
             {
                 var kh = new KhachHang();
-                if (kh.CheckUserName(register.TenDangNhap))
+                if (CheckUserName(register.TenDangNhap))
                 {
                     ModelState.AddModelError("","Tên Đăng Nhập đã tồn tại");
                 }

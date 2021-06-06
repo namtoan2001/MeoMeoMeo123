@@ -92,36 +92,43 @@ namespace MeoMeoMeo.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddOrder()
+        public ActionResult AddOrder(FormCollection fc)
         {
             int orderid = 0;
             cart = Session["cart"] as List<ChiTietDH>;
-            ChiTietDH chitiet = new ChiTietDH();
-            KhachHang kh = new KhachHang();
             DonHang dh = new DonHang()
             {
+                MaKH = Convert.ToInt32(fc["MaKH"]),
+                Nguoitao = fc["TenKH"],
                 Ngaylap = DateTime.Now,
-                MaKH = kh.MaKH,
-                MaDH = chitiet.MaDH,
-                Nguoitao = kh.TenKH,
-                ThanhTien = chitiet.Gia,
-                Tinhtrang = "Ổn"
+                Tinhtrang = "Ổn",
+                ThanhTien = Convert.ToDouble(fc["thanhtien"])
             };
             db.DonHangs.Add(dh);
             db.SaveChanges();
             orderid = dh.MaDH;
             foreach (var item in cart)
             {
-                chitiet.Gia = item.Gia;
-                chitiet.MaSP = item.MaSP;
-                chitiet.MaDH = item.MaDH;
-                chitiet.SL = item.SL;
-                chitiet.TenSP = item.TenSP;
+                ChiTietDH chitiet = new ChiTietDH()
+                {
+                    MaDH = orderid,                 
+                    Gia = item.SanPham.Gia * item.SL,
+                    MaSP = item.SanPham.MaSP,
+                    SL = item.SL,
+                    TenSP = item.SanPham.TenSP,
+                    LoaiSP = null,
+                };
+            
                 db.ChiTietDHs.Add(chitiet);
                 db.SaveChanges();
             }
             Session["cart"] = null;
-            return RedirectToAction("Index");
+            return RedirectToAction("OrderSuccess");
+        }
+        public ActionResult OrderSuccess()
+        {
+
+            return View();
         }
         protected override void Dispose(bool disposing)
         {

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Sản phẩm";
-    if(Session["TenDangNhap"] == null)
+    if(Session["Admin"] == null)
     {
         Response.Redirect("~/Admin");
     }

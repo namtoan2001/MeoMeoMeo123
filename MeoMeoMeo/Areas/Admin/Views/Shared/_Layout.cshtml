@@ -12,56 +12,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                    </ul>
-                </div>
-            </div>
-        </div>*@
-    @*<div class="nav navbar-inverse navbar-fixed-top">
-        <nav class="">
-            <ul class="nav__menu">*@
-    @*<div class="nav navbar-inverse navbar-fixed-top">
-            <nav class="nav bd-container">
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="">
-                        <li class="nav-item">
-                            <a class="nav-link" href=@Url.Action("Index","KhachHangs")>Khách hàng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=@Url.Action("Index","SanPhams")>Sản phẩm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=@Url.Action("Index","LoaiSPs")>Loại sản phẩm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=@Url.Action("Index","DonHangs")>Đơn hàng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=@Url.Action("Index","ChiTietDHs")>Chi tiết đơn hàng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=@Url.Action("Index","UserRoles")>Vai trò người dùng</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>*@
     <nav class="nav bd-container">
-        @*<a class="navbar-brand" href="#">Navbar</a>*@
-        @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>*@
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
                 <li class="nav__item">
@@ -83,9 +34,9 @@
                     <a class="nav__link" href=@Url.Action("Index","UserRoles")>Vai trò người dùng</a>
                 </li>*@
                 <li class="nav__item">
-                    @if (Session["TenDangNhap"] != null)
+                    @if (Session["Admin"] != null)
                     {
-                        <label>Wellcome @Session["TenDangNhap"].ToString() | </label>
+                        <label>Wellcome @Session["Admin"].ToString() | </label>
                         <label>@Html.ActionLink("log out", "logout", "Home")</label>
                     }
                 </li>

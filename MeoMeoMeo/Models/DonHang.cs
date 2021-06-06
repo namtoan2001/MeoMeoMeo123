@@ -27,8 +27,8 @@ namespace MeoMeoMeo.Models
         public string Nguoitao { get; set; }
         public int MaKH { get; set; }
     
+        public virtual KhachHang KhachHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDH> ChiTietDHs { get; set; }
-        public virtual KhachHang KhachHang { get; set; }
     }
 }

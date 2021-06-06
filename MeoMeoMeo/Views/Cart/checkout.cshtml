@@ -1,0 +1,113 @@
+﻿@using MeoMeoMeo.Models
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["TenDangNhap"] == null)
+    {
+        Response.Redirect("~/Dang-Nhap");
+    }
+    double total = 0;
+    KhachHang kh = new KhachHang();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="~/Content/CartStyle.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/Content/Style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+</head>
+<body>
+    @using (Html.BeginForm("AddOrder", "Cart", FormMethod.Post))
+    {
+        if (Session["cart"] != null)
+        {
+            <div class="small-container cart-page">
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                    @foreach (var item in (List<ChiTietDH>)Session["cart"])
+                    {
+                        total += Convert.ToDouble(item.SanPham.Gia * item.SL);
+                        <tr>
+                            <td>
+                                <img src="~/IMG SANPHAM/@item.SanPham.Hinh_anh" width="150">
+                            </td>
+                            <td>
+                                <div>
+                                    <p>
+                                        Tên sản phẩm: @item.SanPham.TenSP
+                                    </p>
+                                    <small>Giá: @item.SanPham.Gia.GetValueOrDefault(0).ToString("N0") VND</small>
+                                    <br>
+                                </div>
+                            </td>
+                            <td>
+                                @item.SL
+                            </td>
+                            <td>
+                                @((item.SanPham.Gia * item.SL).GetValueOrDefault(0).ToString("N0"))VND
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            if (total != 0)
+            {
+                <table>
+                    <tr>
+                        <td><input type="hidden" value=@Session["MaKH"] name="MaKH" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-left">
+                                Tên Khách hàng:
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" value="@Session["TenDangNhap"].ToString()" name="TenKH" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-left">
+                                <input type="hidden" value="@total" name="thanhtien" />Thành tiền:
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-left">@total.ToString("N0") VND</div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="text-center">
+                    <input type="submit" class="btn button bt-dangnhap" value="Thanh toán">
+                </div>
+            }
+            else 
+            {
+                <div class="text-center">
+                    <h1>Vui lòng chọn sản phẩm để thanh toán</h1>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center">
+                Không có sản phẩm nào trong giỏ hàng
+            </div>
+        }
+    }
+</body>
+
+</html>
