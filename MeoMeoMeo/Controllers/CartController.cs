@@ -88,7 +88,7 @@ namespace MeoMeoMeo.Controllers
         }
         public ActionResult checkout()
         {
-
+            ViewBag.PhuongThucThanhToan = new SelectList(db.PhuongThucThanhToans,"id","PhuongThucThanhToan1");
             return View();
         }
         [HttpPost]
@@ -100,10 +100,14 @@ namespace MeoMeoMeo.Controllers
             {
                 MaKH = Convert.ToInt32(fc["MaKH"]),
                 Nguoitao = fc["TenKH"],
+                DiaChi = fc["diachi"],
+                SDT = fc["sdt"],
+                PhuongThucThanhToan = Convert.ToInt32(fc["PhuongThucThanhToan"]),
                 Ngaylap = DateTime.Now,
                 Tinhtrang = "Ổn",
                 ThanhTien = Convert.ToDouble(fc["thanhtien"])
             };
+            ViewBag.PhuongThucThanhToan = new SelectList(db.PhuongThucThanhToans, "id", "PhuongThucThanhToan1", dh.PhuongThucThanhToan);
             db.DonHangs.Add(dh);
             db.SaveChanges();
             orderid = dh.MaDH;

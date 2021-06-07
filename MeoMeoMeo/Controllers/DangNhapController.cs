@@ -36,6 +36,8 @@ namespace MeoMeoMeo.Controllers
                 {
                     Session["TenDangNhap"] = user.TenKH.ToString();
                     Session["MaKH"] = user.MaKH;
+                    Session["SDT"] = user.Sdt;
+                    Session["DiaChi"] = user.Diachi;
                     return RedirectToAction("Index","Home");
                     
                 }

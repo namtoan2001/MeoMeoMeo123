@@ -11,8 +11,7 @@ namespace MeoMeoMeo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-
+    
     public partial class KhachHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,6 +19,7 @@ namespace MeoMeoMeo.Models
         {
             this.DonHangs = new HashSet<DonHang>();
         }
+    
         public int MaKH { get; set; }
         public string TenKH { get; set; }
         public string Sdt { get; set; }

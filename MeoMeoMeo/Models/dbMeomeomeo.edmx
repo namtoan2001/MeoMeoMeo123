@@ -27,6 +27,9 @@
           <Property Name="Tinhtrang" Type="nvarchar" MaxLength="50" />
           <Property Name="Nguoitao" Type="nvarchar" MaxLength="50" />
           <Property Name="MaKH" Type="int" Nullable="false" />
+          <Property Name="SDT" Type="text" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhuongThucThanhToan" Type="int" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -46,6 +49,13 @@
           </Key>
           <Property Name="MaLoai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenLoai" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PhuongThucThanhToan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhuongThucThanhToan" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SanPham">
           <Key>
@@ -112,6 +122,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DonHang_PhuongThucThanhToan">
+          <End Role="PhuongThucThanhToan" Type="Self.PhuongThucThanhToan" Multiplicity="0..1" />
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhuongThucThanhToan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="PhuongThucThanhToan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KhachHang_UserRole">
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
@@ -172,6 +194,7 @@
           <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiSP" EntityType="Self.LoaiSP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhuongThucThanhToan" EntityType="Self.PhuongThucThanhToan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
@@ -185,6 +208,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_DonHang_KhachHang" Association="Self.FK_DonHang_KhachHang">
             <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="DonHang" EntitySet="DonHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonHang_PhuongThucThanhToan" Association="Self.FK_DonHang_PhuongThucThanhToan">
+            <End Role="PhuongThucThanhToan" EntitySet="PhuongThucThanhToan" />
             <End Role="DonHang" EntitySet="DonHang" />
           </AssociationSet>
           <AssociationSet Name="FK_KhachHang_UserRole" Association="Self.FK_KhachHang_UserRole">
@@ -276,19 +303,24 @@
             <End Role="LoaiSP" EntitySet="LoaiSPs" />
             <End Role="SanPham" EntitySet="SanPhams" />
           </AssociationSet>
-          <EntitySet Name="DonHangs" EntityType="CT25Team28Model.DonHang" />
-          <AssociationSet Name="FK_DonHang_KhachHang" Association="CT25Team28Model.FK_DonHang_KhachHang">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="DonHang" EntitySet="DonHangs" />
-          </AssociationSet>
           <EntitySet Name="ChiTietDHs" EntityType="CT25Team28Model.ChiTietDH" />
+          <AssociationSet Name="FK_ChiTietDH_SanPham" Association="CT25Team28Model.FK_ChiTietDH_SanPham">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="ChiTietDH" EntitySet="ChiTietDHs" />
+          </AssociationSet>
+          <EntitySet Name="PhuongThucThanhToans" EntityType="CT25Team28Model.PhuongThucThanhToan" />
+          <EntitySet Name="DonHangs" EntityType="CT25Team28Model.DonHang" />
           <AssociationSet Name="FK_ChiTietDH_DonHang" Association="CT25Team28Model.FK_ChiTietDH_DonHang">
             <End Role="DonHang" EntitySet="DonHangs" />
             <End Role="ChiTietDH" EntitySet="ChiTietDHs" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChiTietDH_SanPham" Association="CT25Team28Model.FK_ChiTietDH_SanPham">
-            <End Role="SanPham" EntitySet="SanPhams" />
-            <End Role="ChiTietDH" EntitySet="ChiTietDHs" />
+          <AssociationSet Name="FK_DonHang_KhachHang" Association="CT25Team28Model.FK_DonHang_KhachHang">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="DonHang" EntitySet="DonHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonHang_PhuongThucThanhToan" Association="CT25Team28Model.FK_DonHang_PhuongThucThanhToan">
+            <End Role="PhuongThucThanhToan" EntitySet="PhuongThucThanhToans" />
+            <End Role="DonHang" EntitySet="DonHangs" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -348,31 +380,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="DonHang">
-          <Key>
-            <PropertyRef Name="MaDH" />
-          </Key>
-          <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ThanhTien" Type="Double" />
-          <Property Name="Ngaylap" Type="DateTime" Precision="0" />
-          <Property Name="Tinhtrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Nguoitao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="KhachHang" Relationship="CT25Team28Model.FK_DonHang_KhachHang" FromRole="DonHang" ToRole="KhachHang" />
-          <NavigationProperty Name="ChiTietDHs" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="DonHang" ToRole="ChiTietDH" />
-        </EntityType>
-        <Association Name="FK_DonHang_KhachHang">
-          <End Type="CT25Team28Model.KhachHang" Role="KhachHang" Multiplicity="1" />
-          <End Type="CT25Team28Model.DonHang" Role="DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ChiTietDH">
           <Key>
             <PropertyRef Name="MaChiTietDH" />
@@ -384,8 +391,45 @@
           <Property Name="SL" Type="Int32" />
           <Property Name="Gia" Type="Double" />
           <Property Name="MaChiTietDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="DonHang" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="ChiTietDH" ToRole="DonHang" />
           <NavigationProperty Name="SanPham" Relationship="CT25Team28Model.FK_ChiTietDH_SanPham" FromRole="ChiTietDH" ToRole="SanPham" />
+          <NavigationProperty Name="DonHang" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="ChiTietDH" ToRole="DonHang" />
+        </EntityType>
+        <Association Name="FK_ChiTietDH_SanPham">
+          <End Type="CT25Team28Model.SanPham" Role="SanPham" Multiplicity="1" />
+          <End Type="CT25Team28Model.ChiTietDH" Role="ChiTietDH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="ChiTietDH">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PhuongThucThanhToan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhuongThucThanhToan1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DonHangs" Relationship="CT25Team28Model.FK_DonHang_PhuongThucThanhToan" FromRole="PhuongThucThanhToan" ToRole="DonHang" />
+        </EntityType>
+        <EntityType Name="DonHang">
+          <Key>
+            <PropertyRef Name="MaDH" />
+          </Key>
+          <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThanhTien" Type="Double" />
+          <Property Name="Ngaylap" Type="DateTime" Precision="0" />
+          <Property Name="Tinhtrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nguoitao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaKH" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChiTietDHs" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="DonHang" ToRole="ChiTietDH" />
+          <NavigationProperty Name="KhachHang" Relationship="CT25Team28Model.FK_DonHang_KhachHang" FromRole="DonHang" ToRole="KhachHang" />
+          <Property Name="SDT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhuongThucThanhToan" Type="Int32" />
+          <NavigationProperty Name="PhuongThucThanhToan1" Relationship="CT25Team28Model.FK_DonHang_PhuongThucThanhToan" FromRole="DonHang" ToRole="PhuongThucThanhToan" />
         </EntityType>
         <Association Name="FK_ChiTietDH_DonHang">
           <End Type="CT25Team28Model.DonHang" Role="DonHang" Multiplicity="1" />
@@ -399,15 +443,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChiTietDH_SanPham">
-          <End Type="CT25Team28Model.SanPham" Role="SanPham" Multiplicity="1" />
-          <End Type="CT25Team28Model.ChiTietDH" Role="ChiTietDH" Multiplicity="*" />
+        <Association Name="FK_DonHang_KhachHang">
+          <End Type="CT25Team28Model.KhachHang" Role="KhachHang" Multiplicity="1" />
+          <End Type="CT25Team28Model.DonHang" Role="DonHang" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="MaSP" />
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
             </Principal>
-            <Dependent Role="ChiTietDH">
-              <PropertyRef Name="MaSP" />
+            <Dependent Role="DonHang">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonHang_PhuongThucThanhToan">
+          <End Type="CT25Team28Model.PhuongThucThanhToan" Role="PhuongThucThanhToan" Multiplicity="0..1" />
+          <End Type="CT25Team28Model.DonHang" Role="DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhuongThucThanhToan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="PhuongThucThanhToan" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -494,18 +550,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DonHangs">
-            <EntityTypeMapping TypeName="CT25Team28Model.DonHang">
-              <MappingFragment StoreEntitySet="DonHang">
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="Nguoitao" ColumnName="Nguoitao" />
-                <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
-                <ScalarProperty Name="Ngaylap" ColumnName="Ngaylap" />
-                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ChiTietDHs">
             <EntityTypeMapping TypeName="CT25Team28Model.ChiTietDH">
               <MappingFragment StoreEntitySet="ChiTietDH">
@@ -515,6 +559,29 @@
                 <ScalarProperty Name="TenSP" ColumnName="TenSP" />
                 <ScalarProperty Name="LoaiSP" ColumnName="LoaiSP" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhuongThucThanhToans">
+            <EntityTypeMapping TypeName="CT25Team28Model.PhuongThucThanhToan">
+              <MappingFragment StoreEntitySet="PhuongThucThanhToan">
+                <ScalarProperty Name="PhuongThucThanhToan1" ColumnName="PhuongThucThanhToan" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonHangs">
+            <EntityTypeMapping TypeName="CT25Team28Model.DonHang">
+              <MappingFragment StoreEntitySet="DonHang">
+                <ScalarProperty Name="PhuongThucThanhToan" ColumnName="PhuongThucThanhToan" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="Nguoitao" ColumnName="Nguoitao" />
+                <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
+                <ScalarProperty Name="Ngaylap" ColumnName="Ngaylap" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
                 <ScalarProperty Name="MaDH" ColumnName="MaDH" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -12,27 +12,18 @@ namespace MeoMeoMeo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DonHang
+    public partial class PhuongThucThanhToan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DonHang()
+        public PhuongThucThanhToan()
         {
-            this.ChiTietDHs = new HashSet<ChiTietDH>();
+            this.DonHangs = new HashSet<DonHang>();
         }
     
-        public int MaDH { get; set; }
-        public Nullable<double> ThanhTien { get; set; }
-        public Nullable<System.DateTime> Ngaylap { get; set; }
-        public string Tinhtrang { get; set; }
-        public string Nguoitao { get; set; }
-        public int MaKH { get; set; }
-        public string SDT { get; set; }
-        public string DiaChi { get; set; }
-        public Nullable<int> PhuongThucThanhToan { get; set; }
+        public int id { get; set; }
+        public string PhuongThucThanhToan1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietDH> ChiTietDHs { get; set; }
-        public virtual KhachHang KhachHang { get; set; }
-        public virtual PhuongThucThanhToan PhuongThucThanhToan1 { get; set; }
+        public virtual ICollection<DonHang> DonHangs { get; set; }
     }
 }

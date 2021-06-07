@@ -8,6 +8,8 @@
     }
     double total = 0;
     KhachHang kh = new KhachHang();
+    DonHang dh = new DonHang();
+    PhuongThucThanhToan pay = new PhuongThucThanhToan();
 }
 
 <!DOCTYPE html>
@@ -82,11 +84,42 @@
                     <tr>
                         <td>
                             <div class="text-left">
-                                <input type="hidden" value="@total" name="thanhtien" />Thành tiền:
+                                Số điện thoại:
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" value="@Session["SDT"].ToString()" name="sdt" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-left">
+                                Địa chỉ:
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" value="@Session["DiaChi"].ToString()" name="diachi" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-left">
+                                <input type="hidden" value="@total" name="thanhtien" />Tổng tiền:
                             </div>
                         </td>
                         <td>
                             <div class="text-left">@total.ToString("N0") VND</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-left">
+                                Phương thức thanh toán:
+                            </div>
+                        </td>
+                        <td>
+                            @Html.DropDownList("PhuongThucThanhToan",null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => dh.PhuongThucThanhToan, "", new { @class = "text-danger", @name = "id"})
                         </td>
                     </tr>
                 </table>

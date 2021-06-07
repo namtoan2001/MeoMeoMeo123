@@ -32,8 +32,9 @@ namespace MeoMeoMeo.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
-        public virtual DbSet<DonHang> DonHangs { get; set; }
         public virtual DbSet<ChiTietDH> ChiTietDHs { get; set; }
+        public virtual DbSet<PhuongThucThanhToan> PhuongThucThanhToans { get; set; }
+        public virtual DbSet<DonHang> DonHangs { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

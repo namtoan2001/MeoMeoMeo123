@@ -312,6 +312,9 @@
       <DependentUpon>dbMeomeomeo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PhuongThucThanhToan.cs">
+      <DependentUpon>dbMeomeomeo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SanPham.cs">
       <DependentUpon>dbMeomeomeo.tt</DependentUpon>
@@ -339,6 +342,7 @@
     <Content Include="Content\IMG\1.png" />
     <Content Include="Content\IMG\2.jpg" />
     <Content Include="Content\IMG\kisspng-shopping-cart-online-shopping-shopping-centre-imag-5c6c1417bf2b28.990778921550586903783-removebg-preview.png" />
+    <Content Include="Content\IMG\vietinbank.png" />
     <Content Include="Content\LoginStyle.css" />
     <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
