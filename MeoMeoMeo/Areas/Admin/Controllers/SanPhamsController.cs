@@ -127,11 +127,32 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaSP,TenSP,Maloai,SL,Gia,Mota,Hinh_anh")] SanPham sanPham)
+        public ActionResult Edit([Bind(Include = "MaSP,TenSP,Maloai,SL,Gia,Mota,Hinh_anh")] SanPham sanPham, HttpPostedFileBase img)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sanPham).State = EntityState.Modified;
+                var model = db.SanPhams.Find(sanPham.MaSP);
+                string oldfilePath =model.Hinh_anh;
+                if (img != null && img.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(img.FileName);
+                    string path = System.IO.Path.Combine(
+                    Server.MapPath("~/IMG SANPHAM/"), fileName);
+                    img.SaveAs(path);
+                    model.Hinh_anh = img.FileName;
+                    string fullPath = Request.MapPath("~/IMG SANPHAM/" + oldfilePath);
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath);
+                    }
+                }
+                model.TenSP = sanPham.TenSP;
+                model.Mota = sanPham.Mota;
+                model.SL = sanPham.SL;
+                model.Gia = sanPham.Gia;
+                model.Maloai = sanPham.Maloai;
+                
+                //db.Entry(sanPham).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -161,6 +182,13 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         {
 
             SanPham sanPham = db.SanPhams.Find(id);
+            var model = db.SanPhams.Find(sanPham.MaSP);
+            string oldfilePath = model.Hinh_anh;
+            string fullPath = Request.MapPath("~/IMG SANPHAM/" + oldfilePath);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
             db.SanPhams.Remove(sanPham);
             db.SaveChanges();
             return RedirectToAction("Index");

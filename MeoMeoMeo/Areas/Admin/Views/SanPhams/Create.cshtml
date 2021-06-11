@@ -64,8 +64,8 @@
                 @*@Html.TextBox("Hinh_anh", "", new { type = "File"})*@
 
 
-                <input type="file" name="img" onchange="previewFile()"><br>
-        <img src="" height="100" alt="Image preview...">
+                <input type="file" name="img" onchange="previewFile()" ><br>
+        <img src="" width="200" alt="Image preview...">
         <script>
             function previewFile() {
                 var preview = document.querySelector('img');

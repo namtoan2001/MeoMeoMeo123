@@ -28,7 +28,7 @@
           <Property Name="Nguoitao" Type="nvarchar" MaxLength="50" />
           <Property Name="MaKH" Type="int" Nullable="false" />
           <Property Name="SDT" Type="text" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="500" />
           <Property Name="PhuongThucThanhToan" Type="int" />
         </EntityType>
         <EntityType Name="KhachHang">
@@ -38,7 +38,7 @@
           <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenKH" Type="nvarchar" MaxLength="50" />
           <Property Name="Sdt" Type="text" />
-          <Property Name="Diachi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Diachi" Type="nvarchar" MaxLength="500" />
           <Property Name="TenDN" Type="varchar" MaxLength="25" />
           <Property Name="MK" Type="varchar" MaxLength="20" />
           <Property Name="MaUR" Type="int" />
@@ -234,7 +234,7 @@
           <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sdt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Diachi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Diachi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="TenDN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="MK" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="MaUR" Type="Int32" />
@@ -427,7 +427,7 @@
           <NavigationProperty Name="ChiTietDHs" Relationship="CT25Team28Model.FK_ChiTietDH_DonHang" FromRole="DonHang" ToRole="ChiTietDH" />
           <NavigationProperty Name="KhachHang" Relationship="CT25Team28Model.FK_DonHang_KhachHang" FromRole="DonHang" ToRole="KhachHang" />
           <Property Name="SDT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PhuongThucThanhToan" Type="Int32" />
           <NavigationProperty Name="PhuongThucThanhToan1" Relationship="CT25Team28Model.FK_DonHang_PhuongThucThanhToan" FromRole="DonHang" ToRole="PhuongThucThanhToan" />
         </EntityType>

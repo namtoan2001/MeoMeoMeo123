@@ -6,7 +6,7 @@
 
 <h2>Chỉnh sửa</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit","SanPhams",FormMethod.Post, new { enctype = "multipart/Form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -60,8 +60,25 @@
         <div class="form-group">
             <label class="control-label col-md-2">Hình ảnh</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Hinh_anh, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hinh_anh, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.Hinh_anh, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Hinh_anh, "", new { @class = "text-danger" })*@
+                <input type="file" name="img" id="img" onchange="previewFile()"/>
+                <img src="~/IMG SANPHAM/@Model.Hinh_anh" width="200" alt="Image preview...">
+                <script>
+                    function previewFile() {
+                        var preview = document.querySelector('img');
+                        var file = document.querySelector('input[type=file]').files[0];
+                        var reader = new FileReader();
+
+                        reader.addEventListener("load", function () {
+                            preview.src = reader.result;
+                        }, false);
+
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                </script>
             </div>
         </div>
 
