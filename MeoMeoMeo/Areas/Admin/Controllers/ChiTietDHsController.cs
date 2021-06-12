@@ -17,7 +17,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // GET: Admin/ChiTietDHs
         public ActionResult Index()
         {
-            var chiTietDHs = db.ChiTietDHs.Include(c => c.DonHang).Include(c => c.SanPham);
+            var chiTietDHs = db.ChiTietDHs.Include(c => c.SanPham).Include(c => c.DonHang);
             return View(chiTietDHs.ToList());
         }
 
@@ -39,8 +39,8 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // GET: Admin/ChiTietDHs/Create
         public ActionResult Create()
         {
-            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "MaDH");
             ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP");
+            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaDH,MaSP,LoaiSP,TenSP,SL,Gia")] ChiTietDH chiTietDH)
+        public ActionResult Create([Bind(Include = "MaDH,MaSP,LoaiSP,TenSP,SL,Gia,MaChiTietDH")] ChiTietDH chiTietDH)
         {
             if (ModelState.IsValid)
             {
@@ -58,8 +58,8 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
             ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP", chiTietDH.MaSP);
+            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
             return View(chiTietDH);
         }
 
@@ -75,8 +75,8 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
             ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP", chiTietDH.MaSP);
+            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
             return View(chiTietDH);
         }
 
@@ -85,7 +85,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDH,MaSP,LoaiSP,TenSP,SL,Gia")] ChiTietDH chiTietDH)
+        public ActionResult Edit([Bind(Include = "MaDH,MaSP,LoaiSP,TenSP,SL,Gia,MaChiTietDH")] ChiTietDH chiTietDH)
         {
             if (ModelState.IsValid)
             {
@@ -93,8 +93,8 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
             ViewBag.MaSP = new SelectList(db.SanPhams, "MaSP", "TenSP", chiTietDH.MaSP);
+            ViewBag.MaDH = new SelectList(db.DonHangs, "MaDH", "Tinhtrang", chiTietDH.MaDH);
             return View(chiTietDH);
         }
 

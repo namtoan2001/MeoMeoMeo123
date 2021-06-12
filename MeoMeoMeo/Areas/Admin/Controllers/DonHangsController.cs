@@ -17,7 +17,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // GET: Admin/DonHangs
         public ActionResult Index()
         {
-            var donHangs = db.DonHangs.Include(d => d.KhachHang);
+            var donHangs = db.DonHangs.Include(d => d.KhachHang).Include(d => d.PhuongThucThanhToan1);
             return View(donHangs.ToList());
         }
 
@@ -40,6 +40,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "TenKH");
+            ViewBag.PhuongThucThanhToan = new SelectList(db.PhuongThucThanhToans, "id", "PhuongThucThanhToan1");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaDH,ThanhTien,Ngaylap,Tinhtrang,Nguoitao,MaKH")] DonHang donHang)
+        public ActionResult Create([Bind(Include = "MaDH,ThanhTien,Ngaylap,Tinhtrang,Nguoitao,MaKH,SDT,DiaChi,PhuongThucThanhToan")] DonHang donHang)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +59,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
             }
 
             ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "TenKH", donHang.MaKH);
+            ViewBag.PhuongThucThanhToan = new SelectList(db.PhuongThucThanhToans, "id", "PhuongThucThanhToan1", donHang.PhuongThucThanhToan);
             return View(donHang);
         }
 
@@ -74,6 +76,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "TenKH", donHang.MaKH);
+            ViewBag.PhuongThucThanhToan = new SelectList(db.PhuongThucThanhToans, "id", "PhuongThucThanhToan1", donHang.PhuongThucThanhToan);
             return View(donHang);
         }
 
@@ -82,7 +85,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDH,ThanhTien,Ngaylap,Tinhtrang,Nguoitao,MaKH")] DonHang donHang)
+        public ActionResult Edit([Bind(Include = "MaDH,ThanhTien,Ngaylap,Tinhtrang,Nguoitao,MaKH,SDT,DiaChi,PhuongThucThanhToan")] DonHang donHang)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +94,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "TenKH", donHang.MaKH);
+            ViewBag.PhuongThucThanhToan = new SelectList(db.PhuongThucThanhToans, "id", "PhuongThucThanhToan1", donHang.PhuongThucThanhToan);
             return View(donHang);
         }
 

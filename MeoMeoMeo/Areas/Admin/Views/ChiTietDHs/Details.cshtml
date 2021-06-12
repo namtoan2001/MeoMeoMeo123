@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+
 }
 
 <h2>Details</h2>
@@ -43,14 +44,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DonHang.Tinhtrang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DonHang.Tinhtrang)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.SanPham.TenSP)
         </dt>
 
@@ -58,9 +51,17 @@
             @Html.DisplayFor(model => model.SanPham.TenSP)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.DonHang.Tinhtrang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonHang.Tinhtrang)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaChiTietDH }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

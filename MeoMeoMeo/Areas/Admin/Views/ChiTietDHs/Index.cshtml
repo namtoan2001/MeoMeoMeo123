@@ -2,9 +2,13 @@
 
 @{
     ViewBag.Title = "Index";
+    if(Session["Admin"] == null)
+    {
+        Response.Redirect("~/Admin");
+    }
 }
 
-<h2>Chi tiết đơn hàng</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -24,10 +28,10 @@
             @Html.DisplayNameFor(model => model.Gia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DonHang.Tinhtrang)
+            @Html.DisplayNameFor(model => model.SanPham.TenSP)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SanPham.TenSP)
+            @Html.DisplayNameFor(model => model.DonHang.Tinhtrang)
         </th>
         <th></th>
     </tr>
@@ -47,15 +51,15 @@
             @Html.DisplayFor(modelItem => item.Gia)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DonHang.Tinhtrang)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.SanPham.TenSP)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => item.DonHang.Tinhtrang)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaChiTietDH }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaChiTietDH }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaChiTietDH })
         </td>
     </tr>
 }

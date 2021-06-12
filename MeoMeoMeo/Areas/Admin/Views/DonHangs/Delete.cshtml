@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
+
 }
 
 <h2>Delete</h2>
@@ -44,11 +45,35 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.SDT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SDT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.KhachHang.TenKH)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.KhachHang.TenKH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhuongThucThanhToan1.PhuongThucThanhToan1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhuongThucThanhToan1.PhuongThucThanhToan1)
         </dd>
 
     </dl>

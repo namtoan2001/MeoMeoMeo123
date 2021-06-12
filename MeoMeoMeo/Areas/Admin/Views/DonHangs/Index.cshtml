@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Index";
+    if(Session["Admin"] == null)
+    {
+        Response.Redirect("~/Admin");
+    }
 }
 
 <h2>Index</h2>
@@ -24,7 +28,16 @@
             @Html.DisplayNameFor(model => model.Nguoitao)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.SDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.KhachHang.TenKH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhuongThucThanhToan1.PhuongThucThanhToan1)
         </th>
         <th></th>
     </tr>
@@ -44,7 +57,16 @@
             @Html.DisplayFor(modelItem => item.Nguoitao)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.SDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaChi)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.KhachHang.TenKH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhuongThucThanhToan1.PhuongThucThanhToan1)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.MaDH }) |
