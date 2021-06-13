@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MeoMeoMeo.Models.SanPham>
+﻿@*@model IEnumerable<MeoMeoMeo.Models.SanPham>*@
+@model PagedList.IPagedList<MeoMeoMeo.Models.SanPham>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Sản Phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,35 +27,39 @@
         @using (Html.BeginForm())
         {
             <div class="text-center glyphicon-text-size">
-                Tìm kiếm sản phẩm: @Html.TextBox("search", "", new { @class = "glyphicon-text-background"})
-                <input class="btn button bt-dangnhap" type="submit" value="Tìm kiếm" >
+                Tìm kiếm sản phẩm: @Html.TextBox("search", "", new { @class = "glyphicon-text-background" })
+                <input class="btn button bt-dangnhap" type="submit" value="Tìm kiếm">
             </div>
         }
 
         <div class="menu__container bd-grid">
             @foreach (var item in Model)
             {
-            <form action="@Url.Action("AddtoCart","Cart")" method="post">
-                <input type="hidden" name="productid" value="@item.MaSP" />
-                <div class="menu__content">
-                    <img src="~/IMG SANPHAM/@item.Hinh_anh" alt="@item.Hinh_anh" class="menu__img">
-                    <h3 class="menu__name"></h3>
-                    <span class="menu__detail">Tên sản phẩm: @item.TenSP</span>
-                    <span class="menu__preci">Giá: @item.Gia.GetValueOrDefault(0).ToString("N0") VND</span>
-                    @Html.ActionLink("Xem chi tiết", "chitietSP", new { id = item.MaSP })
-                    @*<form action="@Url.Action("AddtoCart","Cart")" method="post">*@
+                <form action="@Url.Action("AddtoCart","Cart")" method="post">
+                    <input type="hidden" name="productid" value="@item.MaSP" />
+                    <div class="menu__content">
+                        <img src="~/IMG SANPHAM/@item.Hinh_anh" alt="@item.Hinh_anh" class="menu__img">
+                        <h3 class="menu__name"></h3>
+                        <span class="menu__detail">Tên sản phẩm: @item.TenSP</span>
+                        <span class="menu__preci">Giá: @item.Gia.GetValueOrDefault(0).ToString("N0") VND</span>
+                        @Html.ActionLink("Xem chi tiết", "chitietSP", new { id = item.MaSP })
+                        @*<form action="@Url.Action("AddtoCart","Cart")" method="post">*@
 
-                    <div class="add-cart text-right">
-                        <button type="submit" class="btn button bt-dangnhap"><i class='bx bx-cart-alt'></i></button>
+                        <div class="add-cart text-right">
+                            <button type="submit" class="btn button bt-dangnhap"><i class='bx bx-cart-alt'></i></button>
+                        </div>
+                        @*<a href=@Url.Action("AddtoCart","Cart") name="productid" class="button menu__button"><i class='bx bx-cart-alt'></i></a>*@
+
                     </div>
-                    @*<a href=@Url.Action("AddtoCart","Cart") name="productid" class="button menu__button"><i class='bx bx-cart-alt'></i></a>*@
-
-                </div>
-            </form>
-        }
+                </form>
+            }
 
 
-            </div>
-        </section>
-    </body>
+        </div>
+        <div class="text-center">
+            @*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
+            @Html.PagedListPager(Model, page => Url.Action("SanPham",new { page }))
+        </div>
+    </section>
+</body>
 </html>

@@ -11,6 +11,7 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
 using DocumentFormat.OpenXml.Office.CustomUI;
+using PagedList;
 
 namespace MeoMeoMeo.Controllers
 {
@@ -23,10 +24,16 @@ namespace MeoMeoMeo.Controllers
             return View();
 
         }
-        public ActionResult sanPham()
+        public ActionResult sanPham(int? page)
         {
-            var sp = db.SanPhams.Include(s => s.LoaiSP);
-            return View(sp.ToList());
+            if (page == null) page = 1;
+            var links = (from l in db.SanPhams
+                         select l).OrderBy(x => x.MaSP);
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(links.ToPagedList(pageNumber, pageSize));
+            //var sp = db.SanPhams.Include(s => s.LoaiSP);
+            //return View(sp.ToList());
         }
         [HttpPost]
         public ActionResult sanPham(string search)

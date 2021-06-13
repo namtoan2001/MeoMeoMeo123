@@ -17,6 +17,7 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         // GET: Admin/DonHangs
         public ActionResult Index()
         {
+
             var donHangs = db.DonHangs.Include(d => d.KhachHang).Include(d => d.PhuongThucThanhToan1);
             return View(donHangs.ToList());
         }

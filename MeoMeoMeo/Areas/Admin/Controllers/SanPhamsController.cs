@@ -13,6 +13,7 @@ using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Services.UserAccountMapping;
+using PagedList;
 
 namespace MeoMeoMeo.Areas.Admin.Controllers
 {
@@ -22,10 +23,14 @@ namespace MeoMeoMeo.Areas.Admin.Controllers
         CT25Team28Entities db = new CT25Team28Entities();
 
         // GET: Admin/SanPhams
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var sanPhams = db.SanPhams.Include(s => s.LoaiSP);
-            return View(sanPhams.ToList());
+            if (page == null) page = 1;
+            var links = (from l in db.SanPhams
+                         select l).OrderBy(x => x.MaSP);
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(links.ToPagedList(pageNumber, pageSize));
         }
         [HttpPost]
         public ActionResult Index(string search)
